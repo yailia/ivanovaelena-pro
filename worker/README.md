@@ -81,6 +81,38 @@ npm run dev
 }
 ```
 
+### GET /api/og-preview
+
+Парсинг Open Graph метаданных для превью ссылок (как в Telegram).
+
+**Query параметры:**
+- `url` — URL страницы для парсинга (обязательный)
+
+**Разрешённые домены:**
+- `my.mail.ru`
+- `yandex.ru`
+- `rutube.ru`
+- `1tv.ru`, `www.1tv.ru`
+
+**Пример запроса:**
+```
+GET /api/og-preview?url=https://www.1tv.ru/shows/...
+```
+
+**Response (success):**
+```json
+{
+  "success": true,
+  "data": {
+    "title": "Название видео",
+    "description": "Описание",
+    "image": "https://example.com/thumbnail.jpg",
+    "siteName": "Первый канал",
+    "type": "video"
+  }
+}
+```
+
 ### GET /health
 
 Health check для мониторинга.

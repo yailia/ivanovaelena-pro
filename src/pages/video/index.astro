@@ -1,0 +1,367 @@
+---
+import Layout from '../../components/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+// Данные о видео — превью загружаются автоматически через API
+const videos = [
+	{
+		id: 'nicole-kidman',
+		url: 'https://my.mail.ru/mail/nototrema70/video/8857/37046.html',
+		fallbackTitle: 'Видео на Mail.ru',
+		fallbackSource: 'Mail.ru',
+	},
+	{
+		id: 'yandex-video-1',
+		url: 'https://yandex.ru/video/touch/preview/11408948970295368601',
+		fallbackTitle: 'Видео на Яндексе',
+		fallbackSource: 'Яндекс.Видео',
+	},
+	{
+		id: 'yandex-video-2',
+		url: 'https://yandex.ru/video/touch/preview/9068644329624857745',
+		fallbackTitle: 'Видео на Яндексе',
+		fallbackSource: 'Яндекс.Видео',
+	},
+	{
+		id: 'rutube-video',
+		url: 'https://rutube.ru/video/32af7728326c3b58ae2628bed10ffd7f/',
+		fallbackTitle: 'Видео на Rutube',
+		fallbackSource: 'Rutube',
+	},
+	{
+		id: '1tv-nasledstvo',
+		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/bitva-za-nasledstvo-parallelnye-zhizni-kinoaktera-pust-govoryat-vypusk-ot-10-02-2025',
+		fallbackTitle: 'Пусть говорят',
+		fallbackSource: 'Первый канал',
+	},
+	{
+		id: '1tv-sladkaya-zhizn',
+		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/sladkaya-zhizn-epizod-1-ukradennoe-detstvo-pust-govoryat-vypusk-ot-02-06-2025',
+		fallbackTitle: 'Пусть говорят',
+		fallbackSource: 'Первый канал',
+	},
+	{
+		id: '1tv-anomalnaya-zona',
+		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/srochno-v-efir-ischeznuvshie-v-anomalnoy-zone-pust-govoryat-vypusk-ot-16-10-2025',
+		fallbackTitle: 'Пусть говорят',
+		fallbackSource: 'Первый канал',
+	},
+];
+
+// URL воркера — поменяй на продакшн URL после деплоя
+const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL || 'http://localhost:3000';
+---
+
+<Layout title="Видео - Психолог Лена" description="Видеоматериалы и интервью">
+	<Header />
+	<main class="video-page">
+		<section class="section">
+			<div class="container">
+				<header class="video-hero">
+					<p class="eyebrow">Медиа • Интервью • Эфиры</p>
+					<h1>Видео</h1>
+					<p class="video-intro">
+						Подборка видеоматериалов — интервью, эфиры и полезный контент.
+					</p>
+				</header>
+
+				<div class="video-grid">
+					{videos.map((video) => (
+						<a 
+							href={video.url} 
+							target="_blank" 
+							rel="nofollow noopener noreferrer"
+							class="video-card"
+							data-video-id={video.id}
+							data-video-url={video.url}
+							data-fallback-title={video.fallbackTitle}
+							data-fallback-source={video.fallbackSource}
+						>
+							<div class="video-thumbnail">
+								<div class="video-thumbnail-img skeleton"></div>
+								<div class="video-placeholder">
+									<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+										<polygon points="5 3 19 12 5 21 5 3"></polygon>
+									</svg>
+								</div>
+								<div class="play-overlay">
+									<svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor">
+										<polygon points="5 3 19 12 5 21 5 3"></polygon>
+									</svg>
+								</div>
+							</div>
+							<div class="video-content">
+								<div class="video-meta">
+									<span class="video-source">{video.fallbackSource}</span>
+								</div>
+								<h2 class="video-title">{video.fallbackTitle}</h2>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<script define:vars={{ WORKER_URL }}>
+	// Загружаем OG-превью для всех видео
+	document.addEventListener('DOMContentLoaded', async () => {
+		const videoCards = document.querySelectorAll('.video-card[data-video-url]');
+		
+		for (const card of videoCards) {
+			const videoUrl = card.dataset.videoUrl;
+			const fallbackTitle = card.dataset.fallbackTitle;
+			const fallbackSource = card.dataset.fallbackSource;
+			
+			try {
+				const response = await fetch(
+					`${WORKER_URL}/api/og-preview?url=${encodeURIComponent(videoUrl)}`
+				);
+				
+				if (!response.ok) throw new Error('Failed to fetch');
+				
+				const result = await response.json();
+				
+				if (result.success && result.data) {
+					const { title, description, image, siteName } = result.data;
+					
+					// Обновляем заголовок
+					const titleEl = card.querySelector('.video-title');
+					if (titleEl && title) {
+						titleEl.textContent = title;
+					}
+					
+					// Обновляем источник
+					const sourceEl = card.querySelector('.video-source');
+					if (sourceEl && siteName) {
+						sourceEl.textContent = siteName;
+					}
+					
+					// Обновляем картинку
+					const thumbnailContainer = card.querySelector('.video-thumbnail-img');
+					const placeholder = card.querySelector('.video-placeholder');
+					
+					if (image && thumbnailContainer) {
+						const img = document.createElement('img');
+						img.src = image;
+						img.alt = title || fallbackTitle;
+						img.loading = 'lazy';
+						
+						img.onload = () => {
+							thumbnailContainer.classList.remove('skeleton');
+							thumbnailContainer.appendChild(img);
+							if (placeholder) placeholder.style.display = 'none';
+						};
+						
+						img.onerror = () => {
+							thumbnailContainer.classList.remove('skeleton');
+							if (placeholder) placeholder.style.display = 'flex';
+						};
+					} else {
+						thumbnailContainer.classList.remove('skeleton');
+						if (placeholder) placeholder.style.display = 'flex';
+					}
+				}
+			} catch (error) {
+				console.warn(`Failed to load preview for ${videoUrl}:`, error);
+				// Показываем placeholder при ошибке
+				const thumbnailContainer = card.querySelector('.video-thumbnail-img');
+				const placeholder = card.querySelector('.video-placeholder');
+				if (thumbnailContainer) thumbnailContainer.classList.remove('skeleton');
+				if (placeholder) placeholder.style.display = 'flex';
+			}
+		}
+	});
+</script>
+
+<style>
+	.video-page {
+		background: #ecfdf9;
+		padding-bottom: 4rem;
+	}
+
+	.video-hero {
+		max-width: 640px;
+		margin-bottom: 3rem;
+	}
+
+	.eyebrow {
+		text-transform: uppercase;
+		font-size: 0.85rem;
+		letter-spacing: 0.2em;
+		color: #3a8dff;
+		margin-bottom: 0.75rem;
+	}
+
+	h1 {
+		font-size: clamp(2.5rem, 4vw, 3.5rem);
+		margin: 0;
+		color: #1f2a2e;
+	}
+
+	.video-intro {
+		font-size: 1.25rem;
+		color: #545454;
+		margin-top: 1rem;
+		line-height: 1.6;
+	}
+
+	.video-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+		gap: 2rem;
+	}
+
+	.video-card {
+		background: white;
+		border-radius: 16px;
+		border: 1px solid rgba(111, 216, 197, 0.3);
+		overflow: hidden;
+		text-decoration: none;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 12px 30px rgba(31, 42, 46, 0.04);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.video-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 24px 40px rgba(31, 42, 46, 0.08);
+	}
+
+	.video-thumbnail {
+		position: relative;
+		aspect-ratio: 16 / 9;
+		background: linear-gradient(135deg, #e8f5f2 0%, #d4ede8 100%);
+		overflow: hidden;
+	}
+
+	.video-thumbnail-img {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		inset: 0;
+	}
+
+	.video-thumbnail-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.4s ease;
+	}
+
+	.video-card:hover .video-thumbnail-img img {
+		transform: scale(1.05);
+	}
+
+	/* Skeleton loading animation */
+	.skeleton {
+		background: linear-gradient(
+			90deg,
+			#e8f5f2 25%,
+			#d4ede8 50%,
+			#e8f5f2 75%
+		);
+		background-size: 200% 100%;
+		animation: skeleton-loading 1.5s infinite;
+	}
+
+	@keyframes skeleton-loading {
+		0% {
+			background-position: 200% 0;
+		}
+		100% {
+			background-position: -200% 0;
+		}
+	}
+
+	.video-placeholder {
+		position: absolute;
+		inset: 0;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		color: #6fd8c5;
+		background: linear-gradient(135deg, #e8f5f2 0%, #d4ede8 100%);
+	}
+
+	.play-overlay {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(31, 42, 46, 0.3);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.play-overlay svg {
+		color: white;
+		filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+		transition: transform 0.3s ease;
+	}
+
+	.video-card:hover .play-overlay {
+		opacity: 1;
+	}
+
+	.video-card:hover .play-overlay svg {
+		transform: scale(1.1);
+	}
+
+	.video-content {
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.video-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.9rem;
+		color: #7a8b90;
+	}
+
+	.video-source {
+		color: #3a8dff;
+		font-weight: 500;
+	}
+
+	.video-title {
+		margin: 0;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #1f2a2e;
+		line-height: 1.4;
+		transition: color 0.2s ease;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.video-card:hover .video-title {
+		color: #3a8dff;
+	}
+
+	@media (max-width: 768px) {
+		.video-grid {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+
+		.video-content {
+			padding: 1.25rem;
+		}
+
+		.video-title {
+			font-size: 1.1rem;
+		}
+	}
+</style>

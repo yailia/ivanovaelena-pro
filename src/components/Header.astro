@@ -16,6 +16,7 @@ const currentPath = Astro.url.pathname;
 				<li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>Обо мне</a></li>
 				<li><a href="/services" class={currentPath === '/services' ? 'active' : ''}>Услуги</a></li>
 				<li><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>Блог</a></li>
+				<li><a href="/video" class={currentPath.startsWith('/video') ? 'active' : ''}>Видео</a></li>
 				<li><a href="/reviews" class={currentPath === '/reviews' ? 'active' : ''}>Отзывы</a></li>
 				<li><a href="/contacts" class={currentPath === '/contacts' ? 'active' : ''}>Контакты</a></li>
 			</ul>
@@ -39,6 +40,7 @@ const currentPath = Astro.url.pathname;
 				<li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>Обо мне</a></li>
 				<li><a href="/services" class={currentPath === '/services' ? 'active' : ''}>Услуги</a></li>
 				<li><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>Блог</a></li>
+				<li><a href="/video" class={currentPath.startsWith('/video') ? 'active' : ''}>Видео</a></li>
 				<li><a href="/reviews" class={currentPath === '/reviews' ? 'active' : ''}>Отзывы</a></li>
 				<li><a href="/contacts" class={currentPath === '/contacts' ? 'active' : ''}>Контакты</a></li>
 			</ul>

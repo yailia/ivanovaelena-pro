@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import * as cheerio from 'cheerio';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,7 +23,7 @@ app.use(cors({
       callback(new Error('CORS not allowed'));
     }
   },
-  methods: ['POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type']
 }));
 
@@ -178,6 +179,90 @@ app.post('/api/submit', async (req, res) => {
     return res.status(500).json({
       success: false,
       error: 'Ошибка отправки. Попробуйте позже.'
+    });
+  }
+});
+
+// Парсинг OG-тегов для превью ссылок
+app.get('/api/og-preview', async (req, res) => {
+  const { url } = req.query;
+  
+  if (!url) {
+    return res.status(400).json({ 
+      success: false, 
+      error: 'URL parameter is required' 
+    });
+  }
+
+  try {
+    // Валидация URL
+    const parsedUrl = new URL(url);
+    
+    // Разрешённые домены для парсинга
+    const allowedDomains = [
+      'my.mail.ru',
+      'yandex.ru',
+      'rutube.ru',
+      '1tv.ru',
+      'www.1tv.ru'
+    ];
+    
+    if (!allowedDomains.some(domain => parsedUrl.hostname.includes(domain))) {
+      return res.status(403).json({ 
+        success: false, 
+        error: 'Domain not allowed' 
+      });
+    }
+
+    // Загружаем страницу
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'ru-RU,ru;q=0.9,en;q=0.8'
+      },
+      signal: AbortSignal.timeout(10000) // 10 секунд таймаут
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const html = await response.text();
+    const $ = cheerio.load(html);
+
+    // Извлекаем OG-теги
+    const ogData = {
+      title: $('meta[property="og:title"]').attr('content') 
+        || $('meta[name="title"]').attr('content')
+        || $('title').text() 
+        || '',
+      description: $('meta[property="og:description"]').attr('content') 
+        || $('meta[name="description"]').attr('content') 
+        || '',
+      image: $('meta[property="og:image"]').attr('content') 
+        || $('meta[property="og:image:url"]').attr('content')
+        || '',
+      siteName: $('meta[property="og:site_name"]').attr('content') || '',
+      type: $('meta[property="og:type"]').attr('content') || 'website'
+    };
+
+    // Исправляем относительные URL для изображений
+    if (ogData.image && !ogData.image.startsWith('http')) {
+      ogData.image = new URL(ogData.image, url).href;
+    }
+
+    res.json({ 
+      success: true, 
+      data: ogData 
+    });
+
+  } catch (error) {
+    console.error(`OG preview error for ${url}:`, error.message);
+    res.status(500).json({ 
+      success: false, 
+      error: 'Failed to fetch URL',
+      details: error.message
     });
   }
 });
