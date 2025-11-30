@@ -12,8 +12,11 @@ export function entryToBlogPost(entry: CollectionEntry<'blog'>): BlogPost {
 		? entry.data.excerpt
 		: createExcerptFromBody(body);
 
+	// entry.id может быть "folder/index.mdx", извлекаем имя папки
+	const slug = entry.id.replace(/\/index\.mdx?$/, '').split('/')[0];
+
 	return {
-		id: entry.id,
+		id: slug,
 		title: entry.data.title,
 		date: entry.data.date,
 		tags: entry.data.tags,
@@ -32,7 +35,13 @@ export function getSlugFromPath(path: string): string {
 }
 
 function createExcerptFromBody(body: string, limit = 220): string {
-	const cleanText = body.replace(/[#>*_`]/g, '').replace(/\s+/g, ' ').trim();
+	const cleanText = body
+		.replace(/<[^>]*>/g, '') // удаляем HTML-теги
+		.replace(/\{[^}]*\}/g, '') // удаляем JSX-выражения
+		.replace(/import\s+.*?from\s+['"][^'"]+['"]/g, '') // удаляем импорты
+		.replace(/[#>*_`\[\]]/g, '') // удаляем markdown-символы
+		.replace(/\s+/g, ' ')
+		.trim();
 	if (!cleanText) return '';
 	if (cleanText.length <= limit) {
 		return cleanText;

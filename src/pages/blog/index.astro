@@ -29,9 +29,6 @@ const posts = blogEntries
 					{posts.length > 0 ? (
 						posts.map((post) => (
 							<article class="blog-card">
-								<a href={`/blog/${post.id}`} class="cover-wrap">
-									<img src={post.cover} alt={post.coverAlt || post.title} loading="lazy" />
-								</a>
 								<div class="blog-card-content">
 									<div class="meta">
 										<time>{formatDate(post.date)}</time>
@@ -114,23 +111,6 @@ const posts = blogEntries
 	.blog-card:hover {
 		transform: translateY(-6px);
 		box-shadow: 0 24px 40px rgba(31, 42, 46, 0.08);
-	}
-
-	.cover-wrap {
-		display: block;
-		aspect-ratio: 4 / 3;
-		overflow: hidden;
-	}
-
-	.cover-wrap img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.4s ease;
-	}
-
-	.blog-card:hover .cover-wrap img {
-		transform: scale(1.03);
 	}
 
 	.blog-card-content {

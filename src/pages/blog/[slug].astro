@@ -2,21 +2,25 @@
 import Layout from "../../components/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import { entryToBlogPost } from "../../utils/content";
 import { formatDate } from "../../utils/date";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("blog");
-  return blogEntries.map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry },
-  }));
+  return blogEntries.map((entry) => {
+    // entry.id может быть "folder/index.mdx" или "folder", извлекаем имя папки
+    const slug = entry.id.replace(/\/index\.mdx?$/, "").split("/")[0];
+    return {
+      params: { slug },
+      props: { entry },
+    };
+  });
 }
 
 const { entry } = Astro.props;
 const post = entryToBlogPost(entry);
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 
 // Получаем похожие посты
 const allPosts = await getCollection("blog");
@@ -57,17 +61,6 @@ const relatedPosts = allPosts
               )
             }
           </header>
-
-          {
-            post.cover && (
-              <img
-                src={post.cover}
-                alt={post.coverAlt || post.title}
-                class="blog-post-image"
-                loading="lazy"
-              />
-            )
-          }
 
           <div class="blog-post-content">
             <Content />
@@ -133,14 +126,6 @@ const relatedPosts = allPosts
     margin: 1rem 0 0;
     font-size: clamp(2.25rem, 4vw, 3rem);
     color: #1f2a2e;
-  }
-
-  .blog-post-image {
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
-    margin: 2rem 0;
-    box-shadow: 0 18px 40px rgba(31, 42, 46, 0.12);
   }
 
   .blog-post-content {
