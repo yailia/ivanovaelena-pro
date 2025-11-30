@@ -95,14 +95,45 @@ async function sendTelegramMessage(text) {
 
 // Форматирование сообщения
 function formatMessage(data) {
-  const { name, email, phone, message } = data;
+  const { name, contactMethod, contact, message, email, phone, date, time, type } = data;
   const timestamp = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' });
   
+  // Иконка для способа связи
+  const methodIcons = {
+    telegram: '✈️ Телеграм',
+    max: '💬 Max',
+    phone: '📱 Телефон',
+    email: '📧 Email'
+  };
+  
+  const contactLabel = methodIcons[contactMethod] || '📞 Контакт';
+  const contactValue = contact || email || phone || 'не указан';
+  
+  // Если это запись на консультацию
+  if (type === 'booking' && date && time) {
+    const formattedDate = new Date(date).toLocaleDateString('ru-RU', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    
+    return `📅 <b>НОВАЯ ЗАПИСЬ НА КОНСУЛЬТАЦИЮ</b>
+
+👤 <b>Имя:</b> ${escapeHtml(name)}
+${contactLabel}: ${escapeHtml(contactValue)}
+
+🗓 <b>Дата:</b> ${formattedDate}
+⏰ <b>Время:</b> ${escapeHtml(time)}
+
+🕐 <i>Заявка от ${timestamp}</i>`;
+  }
+  
+  // Обычная заявка с формы контактов
   return `🔔 <b>Новая заявка с сайта</b>
 
 👤 <b>Имя:</b> ${escapeHtml(name)}
-📧 <b>Email:</b> ${escapeHtml(email)}
-📱 <b>Телефон:</b> ${phone ? escapeHtml(phone) : 'не указан'}
+${contactLabel}: ${escapeHtml(contactValue)}
 
 💬 <b>Сообщение:</b>
 ${message ? escapeHtml(message) : 'не указано'}
@@ -127,12 +158,26 @@ function validateData(data) {
     errors.push('Имя должно содержать минимум 2 символа');
   }
   
-  if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.push('Некорректный email');
-  }
-  
-  if (data.phone && !/^[\d\s\+\-\(\)]+$/.test(data.phone)) {
-    errors.push('Некорректный формат телефона');
+  // Новый формат с выбором способа связи
+  if (data.contactMethod && data.contact) {
+    if (data.contactMethod === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.contact)) {
+      errors.push('Некорректный email');
+    }
+    if (data.contactMethod === 'phone' && !/^[\d\s\+\-\(\)]+$/.test(data.contact)) {
+      errors.push('Некорректный формат телефона');
+    }
+    if (!data.contact.trim()) {
+      errors.push('Укажите контактные данные');
+    }
+  } 
+  // Обратная совместимость со старым форматом
+  else if (data.email !== undefined) {
+    if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      errors.push('Некорректный email');
+    }
+    if (data.phone && !/^[\d\s\+\-\(\)]+$/.test(data.phone)) {
+      errors.push('Некорректный формат телефона');
+    }
   }
   
   if (data.message && data.message.length > 2000) {

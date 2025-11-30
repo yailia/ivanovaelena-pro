@@ -3,72 +3,78 @@ import Layout from '../../components/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
-// Данные о видео — превью загружаются автоматически через API
+// Данные о видео — картинки в /public/images/video/
 const videos = [
 	{
 		id: 'andrey-sokolov',
 		url: 'https://yandex.ru/video/touch/preview/9068644329624857745',
-		fallbackTitle: 'Они потрясли мир. Андрей Соколов',
-		fallbackSource: 'Первый канал',
+		title: 'Они потрясли мир. Андрей Соколов',
+		source: 'Пятый канал',
 		date: '21.11.2025',
+		thumbnail: '/images/video/oni_potryasli_mir.webp',
 	},
 	{
 		id: 'belmondo',
 		url: 'https://yandex.ru/video/touch/preview/11408948970295368601',
-		fallbackTitle: 'Они потрясли мир. Жан-Поль Бельмондо',
-		fallbackSource: 'Первый канал',
+		title: 'Они потрясли мир. Жан-Поль Бельмондо',
+		source: 'Пятый канал',
 		date: '18.04.2025',
+		thumbnail: '/images/video/oni_potryasli_mir.webp',
 	},
 	{
 		id: 'nicole-kidman',
 		url: 'https://my.mail.ru/mail/nototrema70/video/8857/37046.html',
-		fallbackTitle: 'Николь Кидман. Притворюсь твоей женой',
-		fallbackSource: 'Mail.ru',
+		title: 'Николь Кидман. Притворюсь твоей женой',
+		source: 'Пятый канал',
+		thumbnail: '/images/video/oni_potryasli_mir.webp',
 	},
 	{
 		id: 'sandra-bullock',
 		url: 'https://www.dokonlin.online/video/sandra-bullok-prozhivaja-bol-oni-potrjas.html',
-		fallbackTitle: 'Сандра Буллок. Проживая боль. Они потрясли мир',
-		fallbackSource: 'ДокОнлайн',
+		title: 'Сандра Буллок. Проживая боль. Они потрясли мир',
+		source: 'Пятый канал',
+		thumbnail: '/images/video/oni_potryasli_mir.webp',
 	},
 	{
 		id: 'natalia-oreiro',
 		url: 'https://www.dokonlin.online/video/natalija-oreiro-russkaja-dusha-dikogo-an.html',
-		fallbackTitle: 'Наталия Орейро. Русская душа дикого ангела. Они потрясли мир',
-		fallbackSource: 'ДокОнлайн',
+		title: 'Наталия Орейро. Русская душа дикого ангела',
+		source: 'Пятый канал',
 		date: '08.11.2024',
+		thumbnail: '/images/video/oni_potryasli_mir.webp',
 	},
 	{
 		id: 'burak-ozcivit',
 		url: 'https://vkvideo.ru/video-6032758_456243248?t=28m',
-		fallbackTitle: 'Они потрясли мир. Бурак Озчивит. Роковое искушение',
-		fallbackSource: 'VK Видео',
+		title: 'Они потрясли мир. Бурак Озчивит. Роковое искушение',
+		source: 'Пятый канал',
+		thumbnail: '/images/video/oni_potryasli_mir.webp',
 	},
 	{
 		id: '1tv-nasledstvo',
 		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/bitva-za-nasledstvo-parallelnye-zhizni-kinoaktera-pust-govoryat-vypusk-ot-10-02-2025',
-		fallbackTitle: 'Битва за наследство. Эпизод 1. Параллельные жизни киноактера',
-		fallbackSource: 'Первый канал • Пусть говорят',
+		title: 'Битва за наследство. Эпизод 1. Параллельные жизни киноактера',
+		source: 'Первый канал • Пусть говорят',
 		date: '10.02.2025',
+		thumbnail: '/images/video/pust-govoryat.jpg',
 	},
 	{
 		id: '1tv-sladkaya-zhizn',
 		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/sladkaya-zhizn-epizod-1-ukradennoe-detstvo-pust-govoryat-vypusk-ot-02-06-2025',
-		fallbackTitle: 'Сладкая жизнь. Эпизод 3. Украденное детство?',
-		fallbackSource: 'Первый канал • Пусть говорят',
+		title: 'Сладкая жизнь. Эпизод 3. Украденное детство?',
+		source: 'Первый канал • Пусть говорят',
 		date: '02.06.2025',
+		thumbnail: '/images/video/pust-govoryat.jpg',
 	},
 	{
 		id: '1tv-anomalnaya-zona',
 		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/srochno-v-efir-ischeznuvshie-v-anomalnoy-zone-pust-govoryat-vypusk-ot-16-10-2025',
-		fallbackTitle: 'Срочно в эфир! Исчезнувшие в аномальной зоне',
-		fallbackSource: 'Первый канал • Пусть говорят',
+		title: 'Срочно в эфир! Исчезнувшие в аномальной зоне',
+		source: 'Первый канал • Пусть говорят',
 		date: '16.10.2025',
+		thumbnail: '/images/video/pust-govoryat.jpg',
 	},
 ];
-
-// URL воркера (из переменной окружения)
-const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 ---
 
 <Layout title="Видео - Психолог Лена" description="Видеоматериалы и интервью">
@@ -91,35 +97,38 @@ const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 							target="_blank" 
 							rel="nofollow noopener noreferrer"
 							class="video-card"
-							data-video-id={video.id}
-							data-video-url={video.url}
-							data-fallback-title={video.fallbackTitle}
-							data-fallback-source={video.fallbackSource}
 						>
 							<div class="video-thumbnail">
-								<div class="video-thumbnail-img skeleton"></div>
+								<img 
+									src={video.thumbnail} 
+									alt={video.title}
+									loading="lazy"
+									onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+								/>
 								<div class="video-placeholder">
 									<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
 										<polygon points="5 3 19 12 5 21 5 3"></polygon>
 									</svg>
 								</div>
 								<div class="play-overlay">
-									<svg width="56" height="56" viewBox="0 0 24 24" fill="currentColor">
-										<polygon points="5 3 19 12 5 21 5 3"></polygon>
-									</svg>
+									<div class="play-button">
+										<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+											<polygon points="6 3 20 12 6 21 6 3"></polygon>
+										</svg>
+									</div>
 								</div>
 							</div>
 							<div class="video-content">
-<div class="video-meta">
-								<span class="video-source">{video.fallbackSource}</span>
-								{video.date && (
-									<>
-										<span class="separator">•</span>
-										<span class="video-date">{video.date}</span>
-									</>
-								)}
-							</div>
-								<h2 class="video-title">{video.fallbackTitle}</h2>
+								<div class="video-meta">
+									<span class="video-source">{video.source}</span>
+									{video.date && (
+										<>
+											<span class="separator">•</span>
+											<span class="video-date">{video.date}</span>
+										</>
+									)}
+								</div>
+								<h2 class="video-title">{video.title}</h2>
 							</div>
 						</a>
 					))}
@@ -129,77 +138,6 @@ const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 	</main>
 	<Footer />
 </Layout>
-
-<script define:vars={{ WORKER_URL }}>
-	// Загружаем OG-превью для всех видео
-	document.addEventListener('DOMContentLoaded', async () => {
-		const videoCards = document.querySelectorAll('.video-card[data-video-url]');
-		
-		for (const card of videoCards) {
-			const videoUrl = card.dataset.videoUrl;
-			const fallbackTitle = card.dataset.fallbackTitle;
-			const fallbackSource = card.dataset.fallbackSource;
-			
-			try {
-				const response = await fetch(
-					`${WORKER_URL}/api/og-preview?url=${encodeURIComponent(videoUrl)}`
-				);
-				
-				if (!response.ok) throw new Error('Failed to fetch');
-				
-				const result = await response.json();
-				
-				if (result.success && result.data) {
-					const { title, description, image, siteName } = result.data;
-					
-					// Обновляем заголовок
-					const titleEl = card.querySelector('.video-title');
-					if (titleEl && title) {
-						titleEl.textContent = title;
-					}
-					
-					// Обновляем источник
-					const sourceEl = card.querySelector('.video-source');
-					if (sourceEl && siteName) {
-						sourceEl.textContent = siteName;
-					}
-					
-					// Обновляем картинку
-					const thumbnailContainer = card.querySelector('.video-thumbnail-img');
-					const placeholder = card.querySelector('.video-placeholder');
-					
-					if (image && thumbnailContainer) {
-						const img = document.createElement('img');
-						img.src = image;
-						img.alt = title || fallbackTitle;
-						img.loading = 'lazy';
-						
-						img.onload = () => {
-							thumbnailContainer.classList.remove('skeleton');
-							thumbnailContainer.appendChild(img);
-							if (placeholder) placeholder.style.display = 'none';
-						};
-						
-						img.onerror = () => {
-							thumbnailContainer.classList.remove('skeleton');
-							if (placeholder) placeholder.style.display = 'flex';
-						};
-					} else {
-						thumbnailContainer.classList.remove('skeleton');
-						if (placeholder) placeholder.style.display = 'flex';
-					}
-				}
-			} catch (error) {
-				console.warn(`Failed to load preview for ${videoUrl}:`, error);
-				// Показываем placeholder при ошибке
-				const thumbnailContainer = card.querySelector('.video-thumbnail-img');
-				const placeholder = card.querySelector('.video-placeholder');
-				if (thumbnailContainer) thumbnailContainer.classList.remove('skeleton');
-				if (placeholder) placeholder.style.display = 'flex';
-			}
-		}
-	});
-</script>
 
 <style>
 	.video-page {
@@ -263,43 +201,15 @@ const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 		overflow: hidden;
 	}
 
-	.video-thumbnail-img {
-		width: 100%;
-		height: 100%;
-		position: absolute;
-		inset: 0;
-	}
-
-	.video-thumbnail-img img {
+	.video-thumbnail img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		transition: transform 0.4s ease;
 	}
 
-	.video-card:hover .video-thumbnail-img img {
+	.video-card:hover .video-thumbnail img {
 		transform: scale(1.05);
-	}
-
-	/* Skeleton loading animation */
-	.skeleton {
-		background: linear-gradient(
-			90deg,
-			#e8f5f2 25%,
-			#d4ede8 50%,
-			#e8f5f2 75%
-		);
-		background-size: 200% 100%;
-		animation: skeleton-loading 1.5s infinite;
-	}
-
-	@keyframes skeleton-loading {
-		0% {
-			background-position: 200% 0;
-		}
-		100% {
-			background-position: -200% 0;
-		}
 	}
 
 	.video-placeholder {
@@ -318,23 +228,31 @@ const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: rgba(31, 42, 46, 0.3);
-		opacity: 0;
-		transition: opacity 0.3s ease;
 	}
 
-	.play-overlay svg {
+	.play-button {
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.2);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: transform 0.3s ease, background 0.3s ease;
+	}
+
+	.play-button svg {
 		color: white;
 		filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
-		transition: transform 0.3s ease;
+		margin-left: 4px; /* оптический центр для треугольника */
 	}
 
-	.video-card:hover .play-overlay {
-		opacity: 1;
-	}
-
-	.video-card:hover .play-overlay svg {
+	.video-card:hover .play-button {
 		transform: scale(1.1);
+		background: rgba(255, 255, 255, 0.3);
 	}
 
 	.video-content {

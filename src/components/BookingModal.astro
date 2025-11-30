@@ -1,0 +1,568 @@
+---
+// URL воркера
+const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
+---
+
+<!-- Модальное окно записи -->
+<div id="booking-modal" class="modal" aria-hidden="true">
+	<div class="modal-overlay" data-close-modal></div>
+	<div class="modal-container">
+		<button class="modal-close" data-close-modal aria-label="Закрыть">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<line x1="18" y1="6" x2="6" y2="18"></line>
+				<line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+		
+		<div class="modal-content">
+			<h2 class="modal-title">Записаться на консультацию</h2>
+			<p class="modal-subtitle">Выберите удобную дату и время</p>
+			
+			<form id="booking-form" class="booking-form" data-worker-url={WORKER_URL}>
+				<!-- Имя -->
+				<div class="form-group">
+					<label for="booking-name">Имя</label>
+					<input type="text" id="booking-name" name="name" required minlength="2" placeholder=" " />
+				</div>
+				
+				<!-- Способ связи -->
+				<div class="form-group">
+					<label>Как с вами связаться?</label>
+					<div class="contact-method-options">
+						<label class="contact-method-option">
+							<input type="radio" name="contactMethod" value="telegram" checked />
+							<span>Телеграм</span>
+						</label>
+						<label class="contact-method-option">
+							<input type="radio" name="contactMethod" value="max" />
+							<span>Max</span>
+						</label>
+						<label class="contact-method-option">
+							<input type="radio" name="contactMethod" value="phone" />
+							<span>Телефон</span>
+						</label>
+						<label class="contact-method-option">
+							<input type="radio" name="contactMethod" value="email" />
+							<span>Email</span>
+						</label>
+					</div>
+				</div>
+
+				<!-- Поля ввода контакта -->
+				<div class="form-group contact-input-group" id="booking-contact-telegram">
+					<label for="booking-telegram">Ваш Телеграм</label>
+					<input type="text" id="booking-telegram" name="telegram" required placeholder="@username" />
+				</div>
+				
+				<div class="form-group contact-input-group" id="booking-contact-max" style="display: none;">
+					<label for="booking-max">Ваш Max</label>
+					<input type="text" id="booking-max" name="max" placeholder="@username или номер" />
+				</div>
+				
+				<div class="form-group contact-input-group" id="booking-contact-phone" style="display: none;">
+					<label for="booking-phone">Ваш телефон</label>
+					<input type="tel" id="booking-phone" name="phone" placeholder="+7 (___) ___-__-__" />
+				</div>
+				
+				<div class="form-group contact-input-group" id="booking-contact-email" style="display: none;">
+					<label for="booking-email">Ваш Email</label>
+					<input type="email" id="booking-email" name="email" placeholder=" " />
+				</div>
+
+				<!-- Выбор даты -->
+				<div class="form-group">
+					<label for="booking-date">Дата</label>
+					<input type="date" id="booking-date" name="date" required />
+				</div>
+
+				<!-- Выбор времени -->
+				<div class="form-group">
+					<label>Время</label>
+					<div class="time-slots" id="time-slots">
+						<label class="time-slot">
+							<input type="radio" name="time" value="10:00" required />
+							<span>10:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="11:00" />
+							<span>11:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="12:00" />
+							<span>12:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="13:00" />
+							<span>13:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="14:00" />
+							<span>14:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="15:00" />
+							<span>15:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="16:00" />
+							<span>16:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="17:00" />
+							<span>17:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="18:00" />
+							<span>18:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="19:00" />
+							<span>19:00</span>
+						</label>
+						<label class="time-slot">
+							<input type="radio" name="time" value="20:00" />
+							<span>20:00</span>
+						</label>
+					</div>
+				</div>
+
+				<!-- Статус -->
+				<div id="booking-status" class="form-status" aria-live="polite"></div>
+
+				<!-- Кнопка -->
+				<button type="submit" id="booking-submit" class="btn btn-full">
+					<span class="btn-text">Записаться</span>
+					<span class="btn-loader" aria-hidden="true"></span>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	// === Модалка ===
+	const modal = document.getElementById('booking-modal');
+	const openButtons = document.querySelectorAll('[data-open-booking]');
+	const closeButtons = modal?.querySelectorAll('[data-close-modal]');
+
+	function openModal() {
+		modal?.classList.add('is-open');
+		document.body.style.overflow = 'hidden';
+	}
+
+	function closeModal() {
+		modal?.classList.remove('is-open');
+		document.body.style.overflow = '';
+	}
+
+	openButtons.forEach(btn => btn.addEventListener('click', (e) => {
+		e.preventDefault();
+		openModal();
+	}));
+
+	closeButtons?.forEach(btn => btn.addEventListener('click', closeModal));
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && modal?.classList.contains('is-open')) {
+			closeModal();
+		}
+	});
+
+	// === Минимальная дата (завтра) ===
+	const dateInput = document.getElementById('booking-date') as HTMLInputElement;
+	if (dateInput) {
+		const tomorrow = new Date();
+		tomorrow.setDate(tomorrow.getDate() + 1);
+		dateInput.min = tomorrow.toISOString().split('T')[0];
+		
+		// Максимум — 2 месяца вперёд
+		const maxDate = new Date();
+		maxDate.setMonth(maxDate.getMonth() + 2);
+		dateInput.max = maxDate.toISOString().split('T')[0];
+	}
+
+	// === Переключение способа связи ===
+	const form = document.getElementById('booking-form') as HTMLFormElement;
+	const contactMethodRadios = form?.querySelectorAll('input[name="contactMethod"]');
+	const contactInputGroups = form?.querySelectorAll('.contact-input-group');
+
+	function switchContactMethod(method: string) {
+		contactInputGroups?.forEach((group) => {
+			const input = group.querySelector('input') as HTMLInputElement;
+			if (group.id === `booking-contact-${method}`) {
+				(group as HTMLElement).style.display = 'flex';
+				input.required = true;
+			} else {
+				(group as HTMLElement).style.display = 'none';
+				input.required = false;
+				input.value = '';
+			}
+		});
+	}
+
+	contactMethodRadios?.forEach((radio) => {
+		radio.addEventListener('change', (e) => {
+			const target = e.target as HTMLInputElement;
+			switchContactMethod(target.value);
+		});
+	});
+
+	// === Отправка формы ===
+	const submitBtn = document.getElementById('booking-submit') as HTMLButtonElement;
+	const statusEl = document.getElementById('booking-status') as HTMLDivElement;
+	const workerUrl = form?.dataset.workerUrl;
+
+	function setStatus(type: 'success' | 'error' | 'loading' | '', message: string) {
+		statusEl.className = `form-status ${type ? `form-status--${type}` : ''}`;
+		statusEl.textContent = message;
+	}
+
+	function setLoading(loading: boolean) {
+		submitBtn.disabled = loading;
+		submitBtn.classList.toggle('btn--loading', loading);
+		if (loading) {
+			setStatus('loading', 'Отправка...');
+		}
+	}
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		
+		if (!workerUrl) {
+			setStatus('error', 'Ошибка конфигурации.');
+			return;
+		}
+
+		setLoading(true);
+
+		const formData = new FormData(form);
+		const contactMethod = formData.get('contactMethod') as string;
+		
+		let contactValue = '';
+		if (contactMethod === 'telegram') contactValue = formData.get('telegram') as string;
+		else if (contactMethod === 'max') contactValue = formData.get('max') as string;
+		else if (contactMethod === 'phone') contactValue = formData.get('phone') as string;
+		else if (contactMethod === 'email') contactValue = formData.get('email') as string;
+
+		const data = {
+			name: formData.get('name'),
+			contactMethod: contactMethod,
+			contact: contactValue,
+			date: formData.get('date'),
+			time: formData.get('time'),
+			type: 'booking'
+		};
+
+		try {
+			const response = await fetch(`${workerUrl}/api/submit`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data)
+			});
+
+			const result = await response.json();
+
+			if (response.ok && result.success) {
+				setStatus('success', 'Отлично! Запись создана, я свяжусь с вами для подтверждения.');
+				form.reset();
+				switchContactMethod('telegram');
+				setTimeout(closeModal, 3000);
+			} else if (response.status === 429) {
+				setStatus('error', 'Слишком много запросов. Попробуйте через минуту.');
+			} else {
+				setStatus('error', result.errors?.join(', ') || result.error || 'Ошибка отправки');
+			}
+		} catch (error) {
+			setStatus('error', 'Не удалось отправить. Проверьте интернет.');
+		} finally {
+			setLoading(false);
+		}
+	});
+</script>
+
+<style>
+	/* Модалка */
+	.modal {
+		position: fixed;
+		inset: 0;
+		z-index: 1000;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+	}
+
+	.modal.is-open {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.modal-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(31, 42, 46, 0.6);
+		backdrop-filter: blur(4px);
+	}
+
+	.modal-container {
+		position: relative;
+		width: 100%;
+		max-width: 480px;
+		max-height: 90vh;
+		overflow-y: auto;
+		background: white;
+		border-radius: 16px;
+		box-shadow: 0 24px 48px rgba(31, 42, 46, 0.2);
+		transform: translateY(20px);
+		transition: transform 0.3s ease;
+	}
+
+	.modal.is-open .modal-container {
+		transform: translateY(0);
+	}
+
+	.modal-close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		border: none;
+		border-radius: 8px;
+		cursor: pointer;
+		color: #7a8b90;
+		transition: background 0.2s ease, color 0.2s ease;
+		z-index: 1;
+	}
+
+	.modal-close:hover {
+		background: rgba(31, 42, 46, 0.05);
+		color: #1f2a2e;
+	}
+
+	.modal-content {
+		padding: 2rem;
+	}
+
+	.modal-title {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #1f2a2e;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.modal-subtitle {
+		font-size: 1rem;
+		color: #545454;
+		margin: 0 0 1.5rem 0;
+	}
+
+	/* Форма */
+	.booking-form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.form-group label {
+		font-weight: 500;
+		color: #1f2a2e;
+		font-size: 0.9375rem;
+	}
+
+	.form-group input[type="text"],
+	.form-group input[type="email"],
+	.form-group input[type="tel"],
+	.form-group input[type="date"] {
+		padding: 0.75rem;
+		border: 1px solid #E3E5E8;
+		border-radius: 10px;
+		font-size: 1rem;
+		font-family: inherit;
+		transition: border-color 0.2s ease;
+	}
+
+	.form-group input:focus {
+		outline: none;
+		border-color: #3a8dff;
+		box-shadow: 0 0 0 3px rgba(58, 141, 255, 0.15);
+	}
+
+	.form-group input:invalid:not(:placeholder-shown) {
+		border-color: #E7625F;
+	}
+
+	/* Способ связи */
+	.contact-method-options {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.contact-method-option {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid #E3E5E8;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		font-weight: 400;
+		font-size: 0.875rem;
+	}
+
+	.contact-method-option:hover {
+		border-color: #6FD8C5;
+		background: rgba(111, 216, 197, 0.05);
+	}
+
+	.contact-method-option:has(input:checked) {
+		border-color: #6FD8C5;
+		background: rgba(111, 216, 197, 0.15);
+	}
+
+	.contact-method-option input[type="radio"] {
+		width: 0.875rem;
+		height: 0.875rem;
+		accent-color: #6FD8C5;
+		margin: 0;
+	}
+
+	.contact-input-group {
+		display: flex;
+	}
+
+	/* Слоты времени */
+	.time-slots {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0.5rem;
+	}
+
+	.time-slot {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.625rem 0.5rem;
+		border: 1px solid #E3E5E8;
+		border-radius: 8px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		font-size: 0.9375rem;
+	}
+
+	.time-slot:hover {
+		border-color: #6FD8C5;
+		background: rgba(111, 216, 197, 0.05);
+	}
+
+	.time-slot:has(input:checked) {
+		border-color: #6FD8C5;
+		background: rgba(111, 216, 197, 0.2);
+		font-weight: 500;
+	}
+
+	.time-slot input[type="radio"] {
+		position: absolute;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	/* Статус */
+	.form-status {
+		padding: 0;
+		border-radius: 10px;
+		font-size: 0.9375rem;
+		min-height: 0;
+		transition: all 0.2s ease;
+	}
+
+	.form-status:not(:empty) {
+		padding: 0.75rem 1rem;
+	}
+
+	.form-status--success {
+		background-color: rgba(58, 191, 124, 0.1);
+		color: #3ABF7C;
+		border: 1px solid #3ABF7C;
+	}
+
+	.form-status--error {
+		background-color: rgba(231, 98, 95, 0.1);
+		color: #E7625F;
+		border: 1px solid #E7625F;
+	}
+
+	.form-status--loading {
+		background-color: rgba(58, 141, 255, 0.1);
+		color: #3a8dff;
+		border: 1px solid #3a8dff;
+	}
+
+	/* Кнопка */
+	.btn-full {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.btn-loader {
+		display: none;
+		width: 1rem;
+		height: 1rem;
+		border: 2px solid transparent;
+		border-top-color: currentColor;
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+	}
+
+	.btn--loading .btn-text {
+		opacity: 0.7;
+	}
+
+	.btn--loading .btn-loader {
+		display: block;
+	}
+
+	.btn:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+	}
+
+	@keyframes spin {
+		to { transform: rotate(360deg); }
+	}
+
+	@media (max-width: 480px) {
+		.modal-content {
+			padding: 1.5rem;
+		}
+
+		.time-slots {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.contact-method-options {
+			gap: 0.4rem;
+		}
+
+		.contact-method-option {
+			padding: 0.4rem 0.6rem;
+			font-size: 0.8125rem;
+		}
+	}
+</style>
+

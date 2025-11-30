@@ -38,19 +38,54 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 						<form id="contact-form" class="form" data-worker-url={WORKER_URL}>
 							<div class="form-group">
 								<label for="name">Имя</label>
-								<input type="text" id="name" name="name" required minlength="2" />
+								<input type="text" id="name" name="name" required minlength="2" placeholder=" " />
 							</div>
+							
 							<div class="form-group">
-								<label for="email">Email</label>
-								<input type="email" id="email" name="email" required />
+								<label>Предпочитаемый способ связи</label>
+								<div class="contact-method-options">
+									<label class="contact-method-option">
+										<input type="radio" name="contactMethod" value="telegram" checked />
+										<span>Телеграм</span>
+									</label>
+									<label class="contact-method-option">
+										<input type="radio" name="contactMethod" value="max" />
+										<span>Max</span>
+									</label>
+									<label class="contact-method-option">
+										<input type="radio" name="contactMethod" value="phone" />
+										<span>Телефон</span>
+									</label>
+									<label class="contact-method-option">
+										<input type="radio" name="contactMethod" value="email" />
+										<span>Email</span>
+									</label>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="phone">Телефон</label>
-								<input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" />
+
+							<div class="form-group contact-input-group" id="contact-input-telegram">
+								<label for="contact-telegram">Ваш Телеграм</label>
+								<input type="text" id="contact-telegram" name="telegram" required placeholder="@username" />
 							</div>
+							
+							<div class="form-group contact-input-group" id="contact-input-max" style="display: none;">
+								<label for="contact-max">Ваш Max</label>
+								<input type="text" id="contact-max" name="max" placeholder="@username или номер" />
+							</div>
+							
+							<div class="form-group contact-input-group" id="contact-input-phone" style="display: none;">
+								<label for="contact-phone">Ваш телефон</label>
+								<input type="tel" id="contact-phone" name="phone" placeholder="+7 (___) ___-__-__" />
+							</div>
+							
+							<div class="form-group contact-input-group" id="contact-input-email" style="display: none;">
+								<label for="contact-email">Ваш Email</label>
+								<input type="email" id="contact-email" name="email" placeholder=" " />
+							</div>
+
 							<div class="form-group">
 								<label for="message">Сообщение</label>
-								<textarea id="message" name="message" rows="5" maxlength="2000"></textarea>
+								<textarea id="message" name="message" rows="5" maxlength="2000" placeholder=" "></textarea>
 							</div>
 							
 							<!-- Статус отправки -->
@@ -83,6 +118,31 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 	const statusEl = document.getElementById('form-status') as HTMLDivElement;
 	const workerUrl = form?.dataset.workerUrl;
 
+	// Переключение способа связи
+	const contactMethodRadios = document.querySelectorAll('input[name="contactMethod"]');
+	const contactInputGroups = document.querySelectorAll('.contact-input-group');
+
+	function switchContactMethod(method: string) {
+		contactInputGroups.forEach((group) => {
+			const input = group.querySelector('input') as HTMLInputElement;
+			if (group.id === `contact-input-${method}`) {
+				(group as HTMLElement).style.display = 'flex';
+				input.required = true;
+			} else {
+				(group as HTMLElement).style.display = 'none';
+				input.required = false;
+				input.value = '';
+			}
+		});
+	}
+
+	contactMethodRadios.forEach((radio) => {
+		radio.addEventListener('change', (e) => {
+			const target = e.target as HTMLInputElement;
+			switchContactMethod(target.value);
+		});
+	});
+
 	function setStatus(type: 'success' | 'error' | 'loading' | '', message: string) {
 		statusEl.className = `form-status ${type ? `form-status--${type}` : ''}`;
 		statusEl.textContent = message;
@@ -107,10 +167,19 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 		setLoading(true);
 
 		const formData = new FormData(form);
+		const contactMethod = formData.get('contactMethod') as string;
+		
+		// Собираем контактные данные в зависимости от выбранного способа
+		let contactValue = '';
+		if (contactMethod === 'telegram') contactValue = formData.get('telegram') as string;
+		else if (contactMethod === 'max') contactValue = formData.get('max') as string;
+		else if (contactMethod === 'phone') contactValue = formData.get('phone') as string;
+		else if (contactMethod === 'email') contactValue = formData.get('email') as string;
+
 		const data = {
 			name: formData.get('name'),
-			email: formData.get('email'),
-			phone: formData.get('phone'),
+			contactMethod: contactMethod,
+			contact: contactValue,
 			message: formData.get('message')
 		};
 
@@ -128,6 +197,7 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 			if (response.ok && result.success) {
 				setStatus('success', 'Заявка отправлена! Я свяжусь с вами в ближайшее время.');
 				form.reset();
+				switchContactMethod('telegram'); // Сброс к дефолтному
 			} else if (response.status === 429) {
 				setStatus('error', 'Слишком много запросов. Попробуйте через минуту.');
 			} else {
@@ -213,6 +283,46 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 	.form-group input:invalid:not(:placeholder-shown),
 	.form-group textarea:invalid:not(:placeholder-shown) {
 		border-color: var(--color-error);
+	}
+
+	/* Способ связи */
+	.contact-method-options {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.contact-method-option {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.625rem 1rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-button);
+		cursor: pointer;
+		transition: all 0.2s ease;
+		font-weight: 400;
+	}
+
+	.contact-method-option:hover {
+		border-color: var(--color-primary);
+		background: rgba(111, 216, 197, 0.05);
+	}
+
+	.contact-method-option:has(input:checked) {
+		border-color: var(--color-primary);
+		background: rgba(111, 216, 197, 0.15);
+	}
+
+	.contact-method-option input[type="radio"] {
+		width: 1rem;
+		height: 1rem;
+		accent-color: var(--color-primary);
+		margin: 0;
+	}
+
+	.contact-input-group {
+		display: flex;
 	}
 
 	/* Статус отправки */
