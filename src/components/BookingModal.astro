@@ -56,17 +56,17 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 				
 				<div class="form-group contact-input-group" id="booking-contact-max" style="display: none;">
 					<label for="booking-max">Ваш Max</label>
-					<input type="text" id="booking-max" name="max" placeholder="@username или номер" />
+					<input type="text" id="booking-max" name="max" placeholder="@username или номер" disabled />
 				</div>
 				
 				<div class="form-group contact-input-group" id="booking-contact-phone" style="display: none;">
 					<label for="booking-phone">Ваш телефон</label>
-					<input type="tel" id="booking-phone" name="phone" placeholder="+7 (___) ___-__-__" />
+					<input type="tel" id="booking-phone" name="phone" placeholder="+7 (___) ___-__-__" disabled />
 				</div>
 				
 				<div class="form-group contact-input-group" id="booking-contact-email" style="display: none;">
 					<label for="booking-email">Ваш Email</label>
-					<input type="email" id="booking-email" name="email" placeholder=" " />
+					<input type="email" id="booking-email" name="email" placeholder=" " disabled />
 				</div>
 
 				<!-- Выбор даты -->
@@ -228,9 +228,11 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 			if (group.id === `booking-contact-${method}`) {
 				(group as HTMLElement).style.display = 'flex';
 				input.required = true;
+				input.disabled = false;
 			} else {
 				(group as HTMLElement).style.display = 'none';
 				input.required = false;
+				input.disabled = true;
 				input.value = '';
 			}
 		});
@@ -442,7 +444,7 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 		box-shadow: 0 0 0 3px rgba(58, 141, 255, 0.15);
 	}
 
-	.form-group input:invalid:not(:placeholder-shown) {
+	.form-group input:not([type="date"]):invalid:not(:placeholder-shown) {
 		border-color: #E7625F;
 	}
 

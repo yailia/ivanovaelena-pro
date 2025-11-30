@@ -91,17 +91,17 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 							
 							<div class="form-group contact-input-group" id="contact-input-max" style="display: none;">
 								<label for="contact-max">Ваш Max</label>
-								<input type="text" id="contact-max" name="max" placeholder="@username или номер" />
+								<input type="text" id="contact-max" name="max" placeholder="@username или номер" disabled />
 							</div>
 							
 							<div class="form-group contact-input-group" id="contact-input-phone" style="display: none;">
 								<label for="contact-phone">Ваш телефон</label>
-								<input type="tel" id="contact-phone" name="phone" placeholder="+7 (___) ___-__-__" />
+								<input type="tel" id="contact-phone" name="phone" placeholder="+7 (___) ___-__-__" disabled />
 							</div>
 							
 							<div class="form-group contact-input-group" id="contact-input-email" style="display: none;">
 								<label for="contact-email">Ваш Email</label>
-								<input type="email" id="contact-email" name="email" placeholder=" " />
+								<input type="email" id="contact-email" name="email" placeholder=" " disabled />
 							</div>
 
 							<div class="form-group">
@@ -149,9 +149,11 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 			if (group.id === `contact-input-${method}`) {
 				(group as HTMLElement).style.display = 'flex';
 				input.required = true;
+				input.disabled = false;
 			} else {
 				(group as HTMLElement).style.display = 'none';
 				input.required = false;
+				input.disabled = true;
 				input.value = '';
 			}
 		});
