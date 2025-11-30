@@ -204,7 +204,12 @@ app.get('/api/og-preview', async (req, res) => {
       'yandex.ru',
       'rutube.ru',
       '1tv.ru',
-      'www.1tv.ru'
+      'www.1tv.ru',
+      'dokonlin.online',
+      'www.dokonlin.online',
+      'vkvideo.ru',
+      'www.vkvideo.ru',
+      'vk.com'
     ];
     
     if (!allowedDomains.some(domain => parsedUrl.hostname.includes(domain))) {

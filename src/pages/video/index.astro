@@ -6,46 +6,64 @@ import Footer from '../../components/Footer.astro';
 // Данные о видео — превью загружаются автоматически через API
 const videos = [
 	{
+		id: 'andrey-sokolov',
+		url: 'https://yandex.ru/video/touch/preview/9068644329624857745',
+		fallbackTitle: 'Они потрясли мир. Андрей Соколов',
+		fallbackSource: 'Первый канал',
+		date: '21.11.2025',
+	},
+	{
+		id: 'belmondo',
+		url: 'https://yandex.ru/video/touch/preview/11408948970295368601',
+		fallbackTitle: 'Они потрясли мир. Жан-Поль Бельмондо',
+		fallbackSource: 'Первый канал',
+		date: '18.04.2025',
+	},
+	{
 		id: 'nicole-kidman',
 		url: 'https://my.mail.ru/mail/nototrema70/video/8857/37046.html',
-		fallbackTitle: 'Видео на Mail.ru',
+		fallbackTitle: 'Николь Кидман. Притворюсь твоей женой',
 		fallbackSource: 'Mail.ru',
 	},
 	{
-		id: 'yandex-video-1',
-		url: 'https://yandex.ru/video/touch/preview/11408948970295368601',
-		fallbackTitle: 'Видео на Яндексе',
-		fallbackSource: 'Яндекс.Видео',
+		id: 'sandra-bullock',
+		url: 'https://www.dokonlin.online/video/sandra-bullok-prozhivaja-bol-oni-potrjas.html',
+		fallbackTitle: 'Сандра Буллок. Проживая боль. Они потрясли мир',
+		fallbackSource: 'ДокОнлайн',
 	},
 	{
-		id: 'yandex-video-2',
-		url: 'https://yandex.ru/video/touch/preview/9068644329624857745',
-		fallbackTitle: 'Видео на Яндексе',
-		fallbackSource: 'Яндекс.Видео',
+		id: 'natalia-oreiro',
+		url: 'https://www.dokonlin.online/video/natalija-oreiro-russkaja-dusha-dikogo-an.html',
+		fallbackTitle: 'Наталия Орейро. Русская душа дикого ангела. Они потрясли мир',
+		fallbackSource: 'ДокОнлайн',
+		date: '08.11.2024',
 	},
 	{
-		id: 'rutube-video',
-		url: 'https://rutube.ru/video/32af7728326c3b58ae2628bed10ffd7f/',
-		fallbackTitle: 'Видео на Rutube',
-		fallbackSource: 'Rutube',
+		id: 'burak-ozcivit',
+		url: 'https://vkvideo.ru/video-6032758_456243248?t=28m',
+		fallbackTitle: 'Они потрясли мир. Бурак Озчивит. Роковое искушение',
+		fallbackSource: 'VK Видео',
 	},
 	{
 		id: '1tv-nasledstvo',
 		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/bitva-za-nasledstvo-parallelnye-zhizni-kinoaktera-pust-govoryat-vypusk-ot-10-02-2025',
-		fallbackTitle: 'Пусть говорят',
-		fallbackSource: 'Первый канал',
+		fallbackTitle: 'Битва за наследство. Эпизод 1. Параллельные жизни киноактера',
+		fallbackSource: 'Первый канал • Пусть говорят',
+		date: '10.02.2025',
 	},
 	{
 		id: '1tv-sladkaya-zhizn',
 		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/sladkaya-zhizn-epizod-1-ukradennoe-detstvo-pust-govoryat-vypusk-ot-02-06-2025',
-		fallbackTitle: 'Пусть говорят',
-		fallbackSource: 'Первый канал',
+		fallbackTitle: 'Сладкая жизнь. Эпизод 3. Украденное детство?',
+		fallbackSource: 'Первый канал • Пусть говорят',
+		date: '02.06.2025',
 	},
 	{
 		id: '1tv-anomalnaya-zona',
 		url: 'https://www.1tv.ru/shows/pust-govoryat/vypuski-i-dramatichnye-momenty/srochno-v-efir-ischeznuvshie-v-anomalnoy-zone-pust-govoryat-vypusk-ot-16-10-2025',
-		fallbackTitle: 'Пусть говорят',
-		fallbackSource: 'Первый канал',
+		fallbackTitle: 'Срочно в эфир! Исчезнувшие в аномальной зоне',
+		fallbackSource: 'Первый канал • Пусть говорят',
+		date: '16.10.2025',
 	},
 ];
 
@@ -92,9 +110,15 @@ const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 								</div>
 							</div>
 							<div class="video-content">
-								<div class="video-meta">
-									<span class="video-source">{video.fallbackSource}</span>
-								</div>
+<div class="video-meta">
+								<span class="video-source">{video.fallbackSource}</span>
+								{video.date && (
+									<>
+										<span class="separator">•</span>
+										<span class="video-date">{video.date}</span>
+									</>
+								)}
+							</div>
 								<h2 class="video-title">{video.fallbackTitle}</h2>
 							</div>
 						</a>
@@ -331,6 +355,14 @@ const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL;
 	.video-source {
 		color: #3a8dff;
 		font-weight: 500;
+	}
+
+	.separator {
+		color: #c5cdd0;
+	}
+
+	.video-date {
+		color: #7a8b90;
 	}
 
 	.video-title {
