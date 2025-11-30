@@ -1,92 +1,126 @@
 ---
-import '../styles/global.css';
-import BookingModal from './BookingModal.astro';
-import SEOHead from './seo/SEOHead.astro';
+import "../styles/global.css";
+import BookingModal from "./BookingModal.astro";
+import SEOHead from "./seo/SEOHead.astro";
 
 interface Props {
-	title: string;
-	description?: string;
-	canonical?: string;
-	ogImage?: string;
-	ogType?: 'website' | 'article';
-	articlePublishedTime?: string;
-	articleModifiedTime?: string;
-	noindex?: boolean;
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: "website" | "article";
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  noindex?: boolean;
 }
 
-const { 
-	title, 
-	description = 'Психолог Елена Иванова. Помогаю справиться с тревогой и стрессом методами КПТ. Онлайн консультации.',
-	canonical,
-	ogImage = '/og-default.svg',
-	ogType = 'website',
-	articlePublishedTime,
-	articleModifiedTime,
-	noindex = false,
+const {
+  title,
+  description = "Психолог Елена Иванова. Помогаю справиться с тревогой и стрессом методами КПТ. Онлайн консультации.",
+  canonical,
+  ogImage = "/og-default.svg",
+  ogType = "website",
+  articlePublishedTime,
+  articleModifiedTime,
+  noindex = false,
 } = Astro.props;
 ---
 
 <style>
-	.page-wrapper {
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-	}
+  .page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
-	.page-wrapper > main {
-		flex: 1;
-	}
+  .page-wrapper > main {
+    flex: 1;
+  }
 </style>
 
-<!doctype html>
 <html lang="ru">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		{Astro.url.pathname === "/" && <meta name="yandex-verification" content="32b26e8518e70ea4" />}
-		
-		<!-- SEO Meta Tags -->
-		<SEOHead 
-			title={title}
-			description={description}
-			canonical={canonical}
-			ogImage={ogImage}
-			ogType={ogType}
-			articlePublishedTime={articlePublishedTime}
-			articleModifiedTime={articleModifiedTime}
-			noindex={noindex}
-		/>
-		
-		<!-- Шрифты -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
-		
-		<title>{title}</title>
-		
-		<!-- Yandex.Metrika counter -->
-		<script type="text/javascript">
-			(function(m,e,t,r,i,k,a){
-				m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-				m[i].l=1*new Date();
-				for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-				k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-			})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=105578277', 'ym');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
 
-			ym(105578277, 'init', {ssr:true, webvisor:true, trackHash:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
-		</script>
-		<noscript><div><img src="https://mc.yandex.ru/watch/105578277" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-		<!-- /Yandex.Metrika counter -->
-		
-		<slot name="head" />
-	</head>
-	<body>
-		<div class="page-wrapper">
-			<slot />
-		</div>
-		<BookingModal />
-	</body>
+    <!-- SEO Meta Tags -->
+    <SEOHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+      articlePublishedTime={articlePublishedTime}
+      articleModifiedTime={articleModifiedTime}
+      noindex={noindex}
+    />
+
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        (k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a);
+      })(
+        window,
+        document,
+        "script",
+        "https://mc.yandex.ru/metrika/tag.js?id=105578277",
+        "ym"
+      );
+
+      ym(105578277, "init", {
+        ssr: true,
+        webvisor: true,
+        trackHash: true,
+        clickmap: true,
+        ecommerce: "dataLayer",
+        accurateTrackBounce: true,
+        trackLinks: true,
+      });
+    </script>
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/105578277"
+          style="position:absolute; left:-9999px;"
+          alt=""
+        />
+      </div></noscript
+    >
+    <!-- /Yandex.Metrika counter -->
+
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <slot />
+    </div>
+    <BookingModal />
+  </body>
 </html>
-
