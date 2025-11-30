@@ -101,7 +101,7 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 							
 							<div class="form-group contact-input-group" id="contact-input-email" style="display: none;">
 								<label for="contact-email">Ваш Email</label>
-								<input type="email" id="contact-email" name="email" placeholder=" " disabled />
+								<input type="text" id="contact-email" name="email" placeholder=" " disabled />
 							</div>
 
 							<div class="form-group">
@@ -150,11 +150,19 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 				(group as HTMLElement).style.display = 'flex';
 				input.required = true;
 				input.disabled = false;
+				// Включаем type="email" только для email поля
+				if (group.id === 'contact-input-email') {
+					input.type = 'email';
+				}
 			} else {
 				(group as HTMLElement).style.display = 'none';
 				input.required = false;
 				input.disabled = true;
 				input.value = '';
+				// Сбрасываем type на text для email поля
+				if (group.id === 'contact-input-email') {
+					input.type = 'text';
+				}
 			}
 		});
 	}

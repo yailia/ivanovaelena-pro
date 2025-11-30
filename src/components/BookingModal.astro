@@ -66,7 +66,7 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 				
 				<div class="form-group contact-input-group" id="booking-contact-email" style="display: none;">
 					<label for="booking-email">Ваш Email</label>
-					<input type="email" id="booking-email" name="email" placeholder=" " disabled />
+					<input type="text" id="booking-email" name="email" placeholder=" " disabled />
 				</div>
 
 				<!-- Выбор даты -->
@@ -229,11 +229,19 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 				(group as HTMLElement).style.display = 'flex';
 				input.required = true;
 				input.disabled = false;
+				// Включаем type="email" только для email поля
+				if (group.id === 'booking-contact-email') {
+					input.type = 'email';
+				}
 			} else {
 				(group as HTMLElement).style.display = 'none';
 				input.required = false;
 				input.disabled = true;
 				input.value = '';
+				// Сбрасываем type на text для email поля
+				if (group.id === 'booking-contact-email') {
+					input.type = 'text';
+				}
 			}
 		});
 	}

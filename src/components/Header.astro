@@ -13,7 +13,7 @@ const currentPath = Astro.url.pathname;
 			<!-- Desktop Navigation -->
 			<ul class="nav-list desktop-nav">
 				<li><a href="/" class={currentPath === '/' ? 'active' : ''}>Главная</a></li>
-				<li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>Обо мне</a></li>
+				<li><a href="/about" class={currentPath === '/about' || currentPath === '/about/' ? 'active' : ''}>Обо мне</a></li>
 				<li><a href="/services" class={currentPath === '/services' ? 'active' : ''}>Услуги</a></li>
 				<li><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>Блог</a></li>
 				<li><a href="/video" class={currentPath.startsWith('/video') ? 'active' : ''}>Видео</a></li>
@@ -37,7 +37,7 @@ const currentPath = Astro.url.pathname;
 		<div class="mobile-menu-content">
 			<ul class="mobile-nav-list">
 				<li><a href="/" class={currentPath === '/' ? 'active' : ''}>Главная</a></li>
-				<li><a href="/about" class={currentPath === '/about' ? 'active' : ''}>Обо мне</a></li>
+				<li><a href="/about" class={currentPath === '/about' || currentPath === '/about/' ? 'active' : ''}>Обо мне</a></li>
 				<li><a href="/services" class={currentPath === '/services' ? 'active' : ''}>Услуги</a></li>
 				<li><a href="/blog" class={currentPath.startsWith('/blog') ? 'active' : ''}>Блог</a></li>
 				<li><a href="/video" class={currentPath.startsWith('/video') ? 'active' : ''}>Видео</a></li>
