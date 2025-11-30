@@ -311,7 +311,10 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 		try {
 			const response = await fetch(`${workerUrl}/api/submit`, {
 				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Requested-With': 'XMLHttpRequest'
+				},
 				body: JSON.stringify(data)
 			});
 
