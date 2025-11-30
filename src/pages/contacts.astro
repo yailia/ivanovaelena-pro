@@ -2,6 +2,9 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+// URL воркера - замените на ваш после деплоя на Render
+const WORKER_URL = import.meta.env.PUBLIC_WORKER_URL || 'https://lena-form-worker.onrender.com';
 ---
 
 <Layout title="Контакты - Психолог Лена" description="Свяжитесь со мной: Telegram, WhatsApp, Email">
@@ -32,10 +35,10 @@ import Footer from '../components/Footer.astro';
 
 					<div class="contacts-form">
 						<h2>Форма записи</h2>
-						<form class="form">
+						<form id="contact-form" class="form" data-worker-url={WORKER_URL}>
 							<div class="form-group">
 								<label for="name">Имя</label>
-								<input type="text" id="name" name="name" required />
+								<input type="text" id="name" name="name" required minlength="2" />
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
@@ -43,13 +46,20 @@ import Footer from '../components/Footer.astro';
 							</div>
 							<div class="form-group">
 								<label for="phone">Телефон</label>
-								<input type="tel" id="phone" name="phone" />
+								<input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" />
 							</div>
 							<div class="form-group">
 								<label for="message">Сообщение</label>
-								<textarea id="message" name="message" rows="5"></textarea>
+								<textarea id="message" name="message" rows="5" maxlength="2000"></textarea>
 							</div>
-							<button type="submit" class="btn">Отправить</button>
+							
+							<!-- Статус отправки -->
+							<div id="form-status" class="form-status" aria-live="polite"></div>
+							
+							<button type="submit" id="submit-btn" class="btn">
+								<span class="btn-text">Отправить</span>
+								<span class="btn-loader" aria-hidden="true"></span>
+							</button>
 						</form>
 					</div>
 				</div>
@@ -66,6 +76,72 @@ import Footer from '../components/Footer.astro';
 	</main>
 	<Footer />
 </Layout>
+
+<script>
+	const form = document.getElementById('contact-form') as HTMLFormElement;
+	const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+	const statusEl = document.getElementById('form-status') as HTMLDivElement;
+	const workerUrl = form?.dataset.workerUrl;
+
+	function setStatus(type: 'success' | 'error' | 'loading' | '', message: string) {
+		statusEl.className = `form-status ${type ? `form-status--${type}` : ''}`;
+		statusEl.textContent = message;
+	}
+
+	function setLoading(loading: boolean) {
+		submitBtn.disabled = loading;
+		submitBtn.classList.toggle('btn--loading', loading);
+		if (loading) {
+			setStatus('loading', 'Отправка...');
+		}
+	}
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		
+		if (!workerUrl) {
+			setStatus('error', 'Ошибка конфигурации. Попробуйте позже.');
+			return;
+		}
+
+		setLoading(true);
+
+		const formData = new FormData(form);
+		const data = {
+			name: formData.get('name'),
+			email: formData.get('email'),
+			phone: formData.get('phone'),
+			message: formData.get('message')
+		};
+
+		try {
+			const response = await fetch(`${workerUrl}/api/submit`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			});
+
+			const result = await response.json();
+
+			if (response.ok && result.success) {
+				setStatus('success', 'Заявка отправлена! Я свяжусь с вами в ближайшее время.');
+				form.reset();
+			} else if (response.status === 429) {
+				setStatus('error', 'Слишком много запросов. Попробуйте через минуту.');
+			} else {
+				const errorMsg = result.errors?.join(', ') || result.error || 'Ошибка отправки';
+				setStatus('error', errorMsg);
+			}
+		} catch (error) {
+			console.error('Form submission error:', error);
+			setStatus('error', 'Не удалось отправить заявку. Проверьте интернет-соединение.');
+		} finally {
+			setLoading(false);
+		}
+	});
+</script>
 
 <style>
 	.contacts-grid {
@@ -124,12 +200,89 @@ import Footer from '../components/Footer.astro';
 		border-radius: var(--radius-button);
 		font-size: var(--font-size-body);
 		font-family: inherit;
+		transition: border-color 0.2s ease;
 	}
 
 	.form-group input:focus,
 	.form-group textarea:focus {
-		outline: 2px solid var(--color-accent);
-		outline-offset: 2px;
+		outline: none;
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px rgba(58, 141, 255, 0.15);
+	}
+
+	.form-group input:invalid:not(:placeholder-shown),
+	.form-group textarea:invalid:not(:placeholder-shown) {
+		border-color: var(--color-error);
+	}
+
+	/* Статус отправки */
+	.form-status {
+		padding: 0;
+		border-radius: var(--radius-button);
+		font-size: 0.9375rem;
+		min-height: 0;
+		transition: all 0.2s ease;
+	}
+
+	.form-status:not(:empty) {
+		padding: 0.875rem 1rem;
+		min-height: auto;
+	}
+
+	.form-status--success {
+		background-color: rgba(58, 191, 124, 0.1);
+		color: var(--color-success);
+		border: 1px solid var(--color-success);
+	}
+
+	.form-status--error {
+		background-color: rgba(231, 98, 95, 0.1);
+		color: var(--color-error);
+		border: 1px solid var(--color-error);
+	}
+
+	.form-status--loading {
+		background-color: rgba(58, 141, 255, 0.1);
+		color: var(--color-accent);
+		border: 1px solid var(--color-accent);
+	}
+
+	/* Кнопка с лоадером */
+	.btn {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+
+	.btn-loader {
+		display: none;
+		width: 1rem;
+		height: 1rem;
+		border: 2px solid transparent;
+		border-top-color: currentColor;
+		border-radius: 50%;
+		animation: spin 0.8s linear infinite;
+	}
+
+	.btn--loading .btn-text {
+		opacity: 0.7;
+	}
+
+	.btn--loading .btn-loader {
+		display: block;
+	}
+
+	.btn:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	.contacts-notice {
@@ -137,6 +290,10 @@ import Footer from '../components/Footer.astro';
 		padding: 2rem;
 		background: var(--color-bg-primary);
 		border-radius: var(--radius-card);
+	}
+
+	.contacts-notice h3 {
+		margin: 0;
 	}
 
 	.contacts-notice ul {
@@ -154,7 +311,3 @@ import Footer from '../components/Footer.astro';
 		}
 	}
 </style>
-
-
-
-
