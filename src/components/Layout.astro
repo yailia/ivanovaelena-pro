@@ -57,18 +57,13 @@ const {
       noindex={noindex}
     />
 
-    <!-- Шрифты -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Шрифты загружаются локально через global.css -->
 
     <title>{title}</title>
 
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
+    {import.meta.env.PROD && (
+      <script type="text/partytown">
       (function (m, e, t, r, i, k, a) {
         m[i] =
           m[i] ||
@@ -111,8 +106,9 @@ const {
           style="position:absolute; left:-9999px;"
           alt=""
         />
-      </div></noscript
+      </div>    </noscript
     >
+    )}
     <!-- /Yandex.Metrika counter -->
 
     <slot name="head" />

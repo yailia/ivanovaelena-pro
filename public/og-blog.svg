@@ -8,7 +8,7 @@
   <rect width="1200" height="630" fill="url(#bg)"/>
   <text x="600" y="260" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="600" fill="#1F2A2E" text-anchor="middle">Блог психолога</text>
   <text x="600" y="330" font-family="Inter, Arial, sans-serif" font-size="32" fill="#545454" text-anchor="middle">Статьи о тревоге, КПТ и саморегуляции</text>
-  <text x="600" y="420" font-family="Inter, Arial, sans-serif" font-size="28" fill="#3A8DFF" text-anchor="middle">ivanovaelena.pro/blog</text>
+  <text x="600" y="420" font-family="Inter, Arial, sans-serif" font-size="28" fill="#2563EB" text-anchor="middle">ivanovaelena.pro/blog</text>
   <rect x="80" y="550" width="120" height="8" rx="4" fill="#6FD8C5"/>
-  <rect x="220" y="550" width="80" height="8" rx="4" fill="#3A8DFF"/>
+  <rect x="220" y="550" width="80" height="8" rx="4" fill="#2563EB"/>
 </svg>

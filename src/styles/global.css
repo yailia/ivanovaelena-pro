@@ -1,13 +1,70 @@
 @import "tailwindcss";
 
+/* Локальные шрифты */
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/Inter18pt-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/Inter18pt-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/Inter18pt-SemiBold.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/Inter18pt-Bold.woff2') format('woff2');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('/fonts/Manrope-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('/fonts/Manrope-Medium.woff2') format('woff2');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('/fonts/Manrope-SemiBold.woff2') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
 @theme {
 	/* Цветовая палитра */
 	--color-primary: #6FD8C5;
 	--color-bg-primary: #ECFDF9;
 	--color-text-primary: #1F2A2E;
 	--color-text-secondary: #545454;
-	--color-accent: #3A8DFF;
-	--color-success: #3ABF7C;
+	--color-accent: #2563EB;
+	--color-success: #15803D;
 	--color-warning: #F2B94C;
 	--color-error: #E7625F;
 	--color-border: #E3E5E8;
