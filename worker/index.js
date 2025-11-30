@@ -189,14 +189,23 @@ function validateData(data) {
   
   // Новый формат с выбором способа связи
   if (data.contactMethod && data.contact) {
-    if (data.contactMethod === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.contact)) {
-      errors.push('Некорректный email');
-    }
-    if (data.contactMethod === 'phone' && !/^[\d\s\+\-\(\)]+$/.test(data.contact)) {
-      errors.push('Некорректный формат телефона');
-    }
-    if (!data.contact.trim()) {
+    const contactTrimmed = data.contact.trim();
+    
+    if (!contactTrimmed) {
       errors.push('Укажите контактные данные');
+    } else {
+      // Валидация email только если выбран способ связи "email"
+      if (data.contactMethod === 'email') {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactTrimmed)) {
+          errors.push('Некорректный email');
+        }
+      }
+      // Валидация телефона только если выбран способ связи "phone"
+      if (data.contactMethod === 'phone') {
+        if (!/^[\d\s\+\-\(\)]+$/.test(contactTrimmed)) {
+          errors.push('Некорректный формат телефона');
+        }
+      }
     }
   } 
   // Обратная совместимость со старым форматом
