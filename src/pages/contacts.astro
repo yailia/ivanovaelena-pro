@@ -26,16 +26,30 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 						<h2>Свяжитесь со мной</h2>
 						<ul class="contacts-list">
 							<li>
-								<strong>Telegram:</strong>
-								<a href="https://t.me/" target="_blank" rel="noopener">@username</a>
+								<a href="https://t.me/elena_rivovna" target="_blank" rel="noopener" class="contact-link">
+									<span class="contact-icon">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="currentColor"/>
+										</svg>
+									</span>
+									<span class="contact-text">
+										<span class="contact-label">Telegram</span>
+										<span class="contact-value">@elena_rivovna</span>
+									</span>
+								</a>
 							</li>
 							<li>
-								<strong>WhatsApp:</strong>
-								<a href="https://wa.me/" target="_blank" rel="noopener">+7 (XXX) XXX-XX-XX</a>
-							</li>
-							<li>
-								<strong>Email:</strong>
-								<a href="mailto:">email@example.com</a>
+								<a href="mailto:elena_rivovna@mail.ru" class="contact-link">
+									<span class="contact-icon">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="currentColor"/>
+										</svg>
+									</span>
+									<span class="contact-text">
+										<span class="contact-label">Email</span>
+										<span class="contact-value">elena_rivovna@mail.ru</span>
+									</span>
+								</a>
 							</li>
 						</ul>
 					</div>
@@ -234,22 +248,69 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 		margin: 2rem 0;
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 1rem;
 	}
 
 	.contacts-list li {
 		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
 	}
 
-	.contacts-list a {
-		color: var(--color-accent);
+	.contact-link {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 1rem 1.25rem;
+		background: var(--color-bg-primary);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
 		text-decoration: none;
+		transition: all 0.2s ease;
+		width: 100%;
 	}
 
-	.contacts-list a:hover {
-		text-decoration: underline;
+	.contact-link:hover {
+		border-color: var(--color-primary);
+		background: rgba(111, 216, 197, 0.08);
+		transform: translateY(-2px);
+	}
+
+	.contact-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		background: rgba(111, 216, 197, 0.15);
+		border-radius: 12px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.contact-icon svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.contact-text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.contact-label {
+		font-size: 0.875rem;
+		color: var(--color-text-secondary);
+		font-weight: 500;
+	}
+
+	.contact-value {
+		font-size: 1.125rem;
+		color: var(--color-text-primary);
+		font-weight: 500;
+	}
+
+	.contact-link:hover .contact-value {
+		color: var(--color-accent);
 	}
 
 	.form {
