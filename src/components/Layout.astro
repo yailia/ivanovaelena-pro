@@ -12,6 +12,7 @@ interface Props {
   articlePublishedTime?: string;
   articleModifiedTime?: string;
   noindex?: boolean;
+  lang?: string;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   articlePublishedTime,
   articleModifiedTime,
   noindex = false,
+  lang = "ru",
 } = Astro.props;
 ---
 
@@ -61,9 +63,28 @@ const {
 
     <title>{title}</title>
 
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <slot />
+    </div>
+    <BookingModal />
+
+    <script is:inline>
+      // Добавляем атрибут lang="ru" к тегу html после монтирования
+      (function () {
+        if (
+          document.documentElement &&
+          !document.documentElement.hasAttribute("lang")
+        ) {
+          document.documentElement.setAttribute("lang", "ru");
+        }
+      })();
+    </script>
+
     <!-- Yandex.Metrika counter -->
-    {import.meta.env.PROD && (
-      <script type="text/partytown">
+    <script type="text/partytown">
       (function (m, e, t, r, i, k, a) {
         m[i] =
           m[i] ||
@@ -90,7 +111,6 @@ const {
       );
 
       ym(105578277, "init", {
-        ssr: true,
         webvisor: true,
         trackHash: true,
         clickmap: true,
@@ -99,24 +119,15 @@ const {
         trackLinks: true,
       });
     </script>
-    <noscript
-      ><div>
+    <noscript>
+      <div>
         <img
           src="https://mc.yandex.ru/watch/105578277"
           style="position:absolute; left:-9999px;"
           alt=""
         />
-      </div>    </noscript
-    >
-    )}
+      </div>
+    </noscript>
     <!-- /Yandex.Metrika counter -->
-
-    <slot name="head" />
-  </head>
-  <body>
-    <div class="page-wrapper">
-      <slot />
-    </div>
-    <BookingModal />
   </body>
 </html>
