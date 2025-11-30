@@ -4,31 +4,249 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Услуги - Психолог Лена" description="Форматы работы: индивидуальная терапия, работа с тревогой, пакеты">
+<Layout title="Услуги - Психолог Лена" description="Форматы работы: индивидуальная терапия, работа с тревогой, трансформационные игры, коучинг">
 	<Header />
 	<main>
-		<section class="section">
+		<!-- Hero Section -->
+		<section class="hero-section">
 			<div class="container">
-				<h1>Услуги</h1>
-				
+				<h1 class="page-title">Услуги и формат работы</h1>
+				<p class="page-subtitle">Выберите удобный формат консультаций и работы над вашим запросом</p>
+			</div>
+		</section>
+
+		<!-- Services Section -->
+		<section class="services-section">
+			<div class="container">
 				<div class="services-grid">
-					<div class="card service-card">
-						<h2>Индивидуальная терапия</h2>
-						<p>Работа один на один с фокусом на ваши конкретные задачи.</p>
-						<a href="/contacts" class="btn">Записаться</a>
+					<!-- Первая консультация -->
+					<div class="service-card service-card--featured">
+						<div class="service-badge">Бесплатно</div>
+						<h2 class="service-title">Первая консультация</h2>
+						<p class="service-description">
+							Знакомство и диагностика вашего запроса. Определим цели терапии, 
+							обсудим подход и поймём, подходим ли мы друг другу.
+						</p>
+						<ul class="service-features">
+							<li>Анализ текущей ситуации</li>
+							<li>Определение целей и задач</li>
+							<li>Подбор стратегии работы</li>
+							<li>Ответы на ваши вопросы</li>
+						</ul>
+						<div class="service-details">
+							<div class="service-detail">
+								<span class="service-detail-label">Длительность</span>
+								<span class="service-detail-value">30 минут</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Формат</span>
+								<span class="service-detail-value">Онлайн</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Стоимость</span>
+								<span class="service-detail-value service-detail-value--free">Бесплатно</span>
+							</div>
+						</div>
+						<a href="/contacts" class="btn service-btn">Выбрать время</a>
 					</div>
 
-					<div class="card service-card">
-						<h2>Работа с тревогой</h2>
-						<p>Специализированная программа для снижения тревоги методами КПТ.</p>
-						<a href="/services/anxiety" class="btn">Подробнее</a>
+					<!-- Онлайн консультации -->
+					<div class="service-card">
+						<h2 class="service-title">Онлайн консультации</h2>
+						<p class="service-description">
+							Глубинная работа с тревожностью и эмоциональным выгоранием 
+							в комфортной обстановке из любой точки мира.
+						</p>
+						<ul class="service-features">
+							<li>Доказательный подход КПТ</li>
+							<li>Индивидуальный план терапии</li>
+							<li>Работа с триггерами и паттернами</li>
+							<li>Домашние задания и техники</li>
+							<li>Гибкий график сессий</li>
+						</ul>
+						<div class="service-details">
+							<div class="service-detail">
+								<span class="service-detail-label">Длительность</span>
+								<span class="service-detail-value">50 минут</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Формат</span>
+								<span class="service-detail-value">Zoom / Telegram</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Стоимость</span>
+								<span class="service-detail-value">от 3 500 ₽</span>
+							</div>
+						</div>
+						<a href="/contacts" class="btn service-btn">Записаться</a>
 					</div>
 
-					<div class="card service-card">
-						<h2>Первая консультация бесплатно</h2>
-						<p>Диагностическая консультация для определения целей и плана работы.</p>
-						<a href="/contacts" class="btn">Записаться</a>
+					<!-- Офлайн консультации -->
+					<div class="service-card">
+						<h2 class="service-title">Офлайн консультации</h2>
+						<p class="service-description">
+							Личные встречи для максимально глубокой проработки. 
+							Безопасное пространство для трансформационной работы.
+						</p>
+						<ul class="service-features">
+							<li>Полное погружение в процесс</li>
+							<li>Работа с телесными ощущениями</li>
+							<li>Расширенный формат сессии</li>
+							<li>Приватный кабинет в центре</li>
+							<li>Персонализированный подход</li>
+						</ul>
+						<div class="service-details">
+							<div class="service-detail">
+								<span class="service-detail-label">Длительность</span>
+								<span class="service-detail-value">60 минут</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Формат</span>
+								<span class="service-detail-value">Москва</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Стоимость</span>
+								<span class="service-detail-value">от 5 000 ₽</span>
+							</div>
+						</div>
+						<a href="/contacts" class="btn service-btn">Записаться</a>
 					</div>
+
+					<!-- Работа с тревогой -->
+					<div class="service-card">
+						<div class="service-badge service-badge--accent">Программа</div>
+						<h2 class="service-title">Работа с тревогой</h2>
+						<p class="service-description">
+							Специализированная программа для снижения тревоги методами КПТ. 
+							Научно обоснованный подход с доказанной эффективностью.
+						</p>
+						<ul class="service-features">
+							<li>Диагностика типа тревоги</li>
+							<li>Техники когнитивной реструктуризации</li>
+							<li>Работа с автоматическими мыслями</li>
+							<li>Поведенческие эксперименты</li>
+							<li>Профилактика рецидивов</li>
+						</ul>
+						<div class="service-details">
+							<div class="service-detail">
+								<span class="service-detail-label">Формат</span>
+								<span class="service-detail-value">Индивидуально</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Подход</span>
+								<span class="service-detail-value">КПТ</span>
+							</div>
+						</div>
+						<a href="/services/anxiety" class="btn service-btn">Подробнее</a>
+					</div>
+
+					<!-- Трансформационная игра "Самосаботаж" -->
+					<div class="service-card">
+						<div class="service-badge service-badge--game">Игра</div>
+						<h2 class="service-title">Трансформационная игра «Самосаботаж»</h2>
+						<p class="service-description">
+							Время прекращать откладывать всё на потом! В игре подсвечиваем установки, 
+							страхи и привычки, которые тормозят на пути к целям.
+						</p>
+						<ul class="service-features">
+							<li>Работа с прокрастинацией</li>
+							<li>Выявление ограничивающих убеждений</li>
+							<li>Понимание своих страхов</li>
+							<li>Профориентация и направление</li>
+							<li>Бережный групповой формат</li>
+						</ul>
+						<div class="service-details">
+							<div class="service-detail">
+								<span class="service-detail-label">Длительность</span>
+								<span class="service-detail-value">2-3 часа</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Формат</span>
+								<span class="service-detail-value">Онлайн / Офлайн</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Участники</span>
+								<span class="service-detail-value">до 4 человек</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Стоимость</span>
+								<span class="service-detail-value">от 2 500 ₽</span>
+							</div>
+						</div>
+						<a href="/contacts" class="btn service-btn">Записаться на игру</a>
+					</div>
+
+					<!-- Коучинг -->
+					<div class="service-card">
+						<h2 class="service-title">Коучинг</h2>
+						<p class="service-description">
+							Работа на результат: достижение целей, профориентация, 
+							повышение личной эффективности. Фокус на будущее и конкретные действия.
+						</p>
+						<ul class="service-features">
+							<li>Анализ текущей ситуации</li>
+							<li>Работа с ограничивающими убеждениями</li>
+							<li>Построение плана действий</li>
+							<li>Преодоление прокрастинации</li>
+							<li>Поддержка в достижении целей</li>
+						</ul>
+						<div class="service-details">
+							<div class="service-detail">
+								<span class="service-detail-label">Длительность</span>
+								<span class="service-detail-value">50-60 минут</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Формат</span>
+								<span class="service-detail-value">Онлайн / Офлайн</span>
+							</div>
+							<div class="service-detail">
+								<span class="service-detail-label">Стоимость</span>
+								<span class="service-detail-value">от 3 500 ₽</span>
+							</div>
+						</div>
+						<a href="/contacts" class="btn service-btn">Записаться</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- About Games Section -->
+		<section class="info-section">
+			<div class="container">
+				<div class="info-card">
+					<h2 class="info-title">Что такое трансформационные игры?</h2>
+					<div class="info-content">
+						<p>
+							Это инструмент, благодаря которому можно максимально лайтово войти в терапию. 
+							Как ни крути, но у нас всё ещё бытует мнение, что поход к психологу — такое себе. 
+							«Вот прижмёт совсем — схожу».
+						</p>
+						<p>
+							С играми проще «обмануть» бессознательное. В процессе игры ослабляются защитные механизмы. 
+							Меньше сопротивления, проще сформулировать запрос — это же игра, не более того.
+						</p>
+						<p>
+							Игра сосредоточена на «отдельно взятом» вопросе и нацелена на будущее, на обретение желаемого. 
+							Прорабатывается то, что важно здесь и сейчас. Эффект я наблюдаю колоссальный!
+						</p>
+						<p class="info-note">
+							<strong>Важно:</strong> С запросом я помогаю определиться ДО игры!
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="cta-section">
+			<div class="container">
+				<div class="cta-card">
+					<h2 class="cta-title">Не знаете, что выбрать?</h2>
+					<p class="cta-description">
+						Запишитесь на бесплатную консультацию — вместе определим, 
+						какой формат работы подойдёт именно вам.
+					</p>
+					<a href="/contacts" class="btn btn--large">Записаться на консультацию</a>
 				</div>
 			</div>
 		</section>
@@ -37,29 +255,291 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <style>
+	/* Hero Section */
+	.hero-section {
+		padding: 4rem 0 2rem;
+		background-color: var(--color-bg-primary);
+	}
+
+	.page-title {
+		font-size: var(--font-size-h1);
+		font-weight: 500;
+		color: var(--color-text-primary);
+		margin-bottom: 0.75rem;
+		text-align: center;
+	}
+
+	.page-subtitle {
+		font-size: var(--font-size-body);
+		color: var(--color-text-secondary);
+		text-align: center;
+		margin: 0;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	/* Services Section */
+	.services-section {
+		padding: 3rem 0 var(--spacing-section);
+		background-color: var(--color-bg-primary);
+	}
+
 	.services-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 2rem;
-		margin-top: 3rem;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+		max-width: 1200px;
+		margin: 0 auto;
 	}
 
 	.service-card {
+		position: relative;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		padding: var(--spacing-card);
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 1.25rem;
+		transition: box-shadow 0.2s ease, transform 0.2s ease;
 	}
 
-	.service-card h2 {
+	.service-card:hover {
+		box-shadow: 0 8px 24px rgba(31, 42, 46, 0.08);
+		transform: translateY(-2px);
+	}
+
+	.service-card--featured {
+		border-color: var(--color-primary);
+		border-width: 2px;
+	}
+
+	.service-badge {
+		position: absolute;
+		top: -12px;
+		left: 50%;
+		transform: translateX(-50%);
+		background: var(--color-success);
+		color: white;
+		font-size: var(--font-size-caption);
+		font-weight: 500;
+		padding: 0.25rem 1rem;
+		border-radius: 100px;
+		white-space: nowrap;
+	}
+
+	.service-badge--accent {
+		background: var(--color-accent);
+	}
+
+	.service-badge--game {
+		background: linear-gradient(135deg, #8B5CF6, #6366F1);
+	}
+
+	.service-title {
+		font-size: var(--font-size-h3);
+		font-weight: 500;
+		color: var(--color-text-primary);
 		margin: 0;
 	}
 
-	.service-card p {
+	.service-card--featured .service-title,
+	.service-card:has(.service-badge) .service-title {
+		margin-top: 0.5rem;
+	}
+
+	.service-description {
+		font-size: var(--font-size-body);
 		color: var(--color-text-secondary);
-		flex: 1;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	.service-features {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.service-features li {
+		font-size: var(--font-size-caption);
+		color: var(--color-text-secondary);
+		padding-left: 1.5rem;
+		position: relative;
+	}
+
+	.service-features li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.5em;
+		width: 8px;
+		height: 8px;
+		background: var(--color-primary);
+		border-radius: 50%;
+	}
+
+	.service-details {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--color-border);
+		margin-top: auto;
+	}
+
+	.service-detail {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.service-detail-label {
+		font-size: var(--font-size-caption);
+		color: var(--color-text-secondary);
+	}
+
+	.service-detail-value {
+		font-size: var(--font-size-caption);
+		color: var(--color-text-primary);
+		font-weight: 500;
+	}
+
+	.service-detail-value--free {
+		color: var(--color-success);
+	}
+
+	.service-btn {
+		width: 100%;
+		margin-top: 0.5rem;
+	}
+
+	.service-card--featured .service-btn {
+		background-color: var(--color-success);
+	}
+
+	.service-card--featured .service-btn:hover {
+		background-color: color-mix(in srgb, var(--color-success) 85%, black);
+	}
+
+	/* Info Section */
+	.info-section {
+		padding: var(--spacing-section) 0;
+		background-color: white;
+	}
+
+	.info-card {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: var(--spacing-card);
+		background: var(--color-bg-primary);
+		border-radius: var(--radius-card);
+		border: 1px solid var(--color-border);
+	}
+
+	.info-title {
+		font-size: var(--font-size-h2);
+		font-weight: 500;
+		color: var(--color-text-primary);
+		margin: 0 0 1.5rem 0;
+		text-align: center;
+	}
+
+	.info-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.info-content p {
+		font-size: var(--font-size-body);
+		color: var(--color-text-secondary);
+		line-height: 1.7;
+		margin: 0;
+	}
+
+	.info-note {
+		padding: 1rem 1.5rem;
+		background: white;
+		border-radius: 8px;
+		border-left: 3px solid var(--color-primary);
+	}
+
+	.info-note strong {
+		color: var(--color-text-primary);
+	}
+
+	/* CTA Section */
+	.cta-section {
+		padding: var(--spacing-section) 0;
+		background-color: var(--color-bg-primary);
+	}
+
+	.cta-card {
+		max-width: 700px;
+		margin: 0 auto;
+		text-align: center;
+		padding: 3rem var(--spacing-card);
+		background: white;
+		border-radius: var(--radius-card);
+		border: 1px solid var(--color-border);
+	}
+
+	.cta-title {
+		font-size: var(--font-size-h2);
+		font-weight: 500;
+		color: var(--color-text-primary);
+		margin: 0 0 1rem 0;
+	}
+
+	.cta-description {
+		font-size: var(--font-size-body);
+		color: var(--color-text-secondary);
+		line-height: 1.6;
+		margin: 0 0 2rem 0;
+	}
+
+	.btn--large {
+		padding: 1rem 2.5rem;
+		font-size: var(--font-size-body);
+	}
+
+	/* Responsive */
+	@media (max-width: 1024px) {
+		.services-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero-section {
+			padding: 3rem 0 1.5rem;
+		}
+
+		.page-title {
+			font-size: calc(var(--font-size-h1) * 0.8);
+		}
+
+		.services-grid {
+			grid-template-columns: 1fr;
+			max-width: 500px;
+		}
+
+		.service-card--featured {
+			order: -1;
+		}
+
+		.info-card,
+		.cta-card {
+			padding: var(--spacing-card);
+		}
+
+		.cta-card {
+			padding: 2rem var(--spacing-card);
+		}
 	}
 </style>
-
-
-
-
