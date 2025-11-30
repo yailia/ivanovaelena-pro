@@ -1,0 +1,125 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Отзывы - Психолог Лена" description="Отзывы клиентов о работе с психологом Леной">
+	<Header />
+	<main>
+		<section class="section">
+			<div class="container">
+				<h1>Отзывы</h1>
+				<p class="reviews-intro">Что говорят клиенты о работе со мной.</p>
+				
+				<!-- Фильтр по темам (если появятся) -->
+				<div class="reviews-filters">
+					<button class="filter-btn active">Все</button>
+					<button class="filter-btn">Тревога</button>
+					<button class="filter-btn">Работа</button>
+					<button class="filter-btn">Выгорание</button>
+				</div>
+
+				<div class="reviews-grid">
+					<!-- Текстовые отзывы -->
+					<div class="card review-card">
+						<div class="review-content">
+							<p>"Отзыв клиента будет здесь."</p>
+						</div>
+						<div class="review-author">
+							<strong>Имя клиента</strong>
+							<span class="review-topic">Тревога</span>
+						</div>
+					</div>
+
+					<!-- Видео отзывы (если появятся) -->
+					<!-- <div class="card review-card review-video">
+						<video controls>
+							<source src="/video/review-1.mp4" type="video/mp4">
+						</video>
+					</div> -->
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.reviews-intro {
+		font-size: 1.25rem;
+		color: var(--color-text-secondary);
+		margin-top: 1rem;
+	}
+
+	.reviews-filters {
+		display: flex;
+		gap: 1rem;
+		margin: 2rem 0;
+		flex-wrap: wrap;
+	}
+
+	.filter-btn {
+		padding: 0.5rem 1.5rem;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-button);
+		cursor: pointer;
+		transition: all 0.2s ease;
+		font-size: var(--font-size-body);
+	}
+
+	.filter-btn:hover,
+	.filter-btn.active {
+		background: var(--color-accent);
+		color: white;
+		border-color: var(--color-accent);
+	}
+
+	.reviews-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	.review-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.review-content {
+		flex: 1;
+	}
+
+	.review-content p {
+		margin: 0;
+		line-height: 1.7;
+	}
+
+	.review-author {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 1rem;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.review-topic {
+		font-size: var(--font-size-caption);
+		color: var(--color-text-secondary);
+		padding: 0.25rem 0.75rem;
+		background: var(--color-bg-primary);
+		border-radius: 1rem;
+	}
+
+	.review-video video {
+		width: 100%;
+		border-radius: var(--radius-card);
+	}
+</style>
+
+
+
+

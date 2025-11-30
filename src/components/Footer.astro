@@ -1,0 +1,95 @@
+---
+---
+
+<footer class="footer">
+	<div class="container">
+		<div class="footer-content">
+			<div class="footer-section">
+				<h3>Контакты</h3>
+				<ul class="footer-links">
+					<li><a href="mailto:">Email</a></li>
+					<li><a href="https://t.me/" target="_blank" rel="noopener">Telegram</a></li>
+					<li><a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a></li>
+				</ul>
+			</div>
+			<div class="footer-section">
+				<h3>Навигация</h3>
+				<ul class="footer-links">
+					<li><a href="/about">Обо мне</a></li>
+					<li><a href="/services">Услуги</a></li>
+					<li><a href="/blog">Блог</a></li>
+					<li><a href="/reviews">Отзывы</a></li>
+				</ul>
+			</div>
+			<div class="footer-section">
+				<h3>Информация</h3>
+				<ul class="footer-links">
+					<li><a href="/privacy-policy">Политика конфиденциальности</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; {new Date().getFullYear()} Лена. Все права защищены.</p>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		background: white;
+		border-top: 1px solid var(--color-border);
+		padding: var(--spacing-section) 0 2rem;
+		margin-top: auto;
+	}
+
+	.footer-content {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.footer-section h3 {
+		font-size: var(--font-size-h3);
+		margin-bottom: 1rem;
+		color: var(--color-text-primary);
+	}
+
+	.footer-links {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.footer-links a {
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.footer-links a:hover {
+		color: var(--color-accent);
+	}
+
+	.footer-bottom {
+		text-align: center;
+		padding-top: 2rem;
+		border-top: 1px solid var(--color-border);
+		color: var(--color-text-secondary);
+		font-size: var(--font-size-caption);
+	}
+
+	@media (max-width: 768px) {
+		.footer-content {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+	}
+</style>
+
+
+
+

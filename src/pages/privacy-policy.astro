@@ -1,0 +1,81 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Политика конфиденциальности - Психолог Лена">
+	<Header />
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="policy-content">
+					<h1>Политика конфиденциальности</h1>
+					
+					<div class="policy-section">
+						<h2>1. Общие положения</h2>
+						<p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты персональных данных пользователей сайта.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>2. Сбор информации</h2>
+						<p>Мы собираем информацию, которую вы предоставляете при заполнении форм на сайте.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>3. Использование информации</h2>
+						<p>Собранная информация используется исключительно для связи с вами и предоставления услуг.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>4. Конфиденциальность</h2>
+						<p>Все данные строго конфиденциальны и не передаются третьим лицам.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>5. Контакты</h2>
+						<p>По вопросам конфиденциальности обращайтесь через форму на странице <a href="/contacts">Контакты</a>.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.policy-content {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.policy-section {
+		margin-bottom: 2.5rem;
+		padding: 2rem;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+	}
+
+	.policy-section h2 {
+		margin-bottom: 1rem;
+	}
+
+	.policy-section p {
+		color: var(--color-text-secondary);
+		line-height: 1.7;
+	}
+
+	.policy-section a {
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+
+	.policy-section a:hover {
+		text-decoration: underline;
+	}
+</style>
+
+
+
+

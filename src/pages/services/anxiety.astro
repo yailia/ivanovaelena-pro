@@ -1,0 +1,105 @@
+---
+import Layout from '../../components/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout title="Работа с тревогой - Психолог Лена" description="Специализированная программа для снижения тревоги методами КПТ">
+	<Header />
+	<main>
+		<section class="section">
+			<div class="container">
+				<h1>Работа с тревогой</h1>
+				
+				<div class="anxiety-content">
+					<div class="content-section">
+						<h2>Описание проблемы</h2>
+						<p>Что такое тревога и как она влияет на жизнь.</p>
+					</div>
+
+					<div class="content-section">
+						<h2>Как тревога проявляется</h2>
+						<p>Симптомы и признаки тревожного расстройства.</p>
+					</div>
+
+					<div class="content-section">
+						<h2>Почему КПТ работает</h2>
+						<p>Научное обоснование эффективности КПТ при работе с тревогой.</p>
+					</div>
+
+					<div class="content-section">
+						<h2>Результаты</h2>
+						<p>Что вы получите после прохождения программы.</p>
+					</div>
+
+					<div class="content-section">
+						<h2>Ожидаемые сроки</h2>
+						<p>Сколько времени занимает работа с тревогой.</p>
+					</div>
+
+					<div class="content-section">
+						<h2>Цена</h2>
+						<p>Стоимость программы.</p>
+					</div>
+
+					<div class="content-section">
+						<h2>FAQ по тревоге</h2>
+						<div class="faq-list">
+							<div class="faq-item">
+								<h3>Как быстро я почувствую улучшение?</h3>
+								<p>Ответ на вопрос.</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="cta-section">
+						<h2>Готовы начать работу с тревогой?</h2>
+						<a href="/contacts" class="btn">Записаться</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.anxiety-content {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+		margin-top: 3rem;
+	}
+
+	.content-section {
+		padding: 2rem;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+	}
+
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+	}
+
+	.faq-item {
+		padding: 1.5rem;
+		background: var(--color-bg-primary);
+		border-radius: var(--radius-card);
+	}
+
+	.cta-section {
+		text-align: center;
+		padding: 3rem;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+	}
+</style>
+
+
+
+

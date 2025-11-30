@@ -1,0 +1,253 @@
+---
+import Layout from "../../components/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+import { entryToBlogPost } from "../../utils/content";
+import { formatDate } from "../../utils/date";
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blog");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const post = entryToBlogPost(entry);
+const { Content } = await entry.render();
+
+// Получаем похожие посты
+const allPosts = await getCollection("blog");
+const relatedPosts = allPosts
+  .filter(
+    (p) =>
+      p.id !== entry.id &&
+      p.data.tags.some((tag) => entry.data.tags.includes(tag))
+  )
+  .slice(0, 3)
+  .map(entryToBlogPost);
+---
+
+<Layout
+  title={`${post.title} - Блог - Психолог Лена`}
+  description={post.excerpt}
+>
+  <Header />
+  <main class="blog-article">
+    <article class="section">
+      <div class="container">
+        <div class="blog-post">
+          <header class="blog-post-header">
+            <div class="meta">
+              <time>{formatDate(post.date)}</time>
+              <span>·</span>
+              <span>{post.readingTime} мин чтения</span>
+            </div>
+            <h1>{post.title}</h1>
+            {
+              post.tags.length > 0 && (
+                <div class="blog-tags">
+                  {post.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              )
+            }
+          </header>
+
+          {
+            post.cover && (
+              <img
+                src={post.cover}
+                alt={post.coverAlt || post.title}
+                class="blog-post-image"
+                loading="lazy"
+              />
+            )
+          }
+
+          <div class="blog-post-content">
+            <Content />
+          </div>
+
+          {
+            relatedPosts.length > 0 && (
+              <aside class="related-posts">
+                <h2>Похожие материалы</h2>
+                <div class="related-posts-grid">
+                  {relatedPosts.map((relatedPost) => (
+                    <a
+                      href={`/blog/${relatedPost.id}`}
+                      class="card related-post-card"
+                    >
+                      <h3>{relatedPost.title}</h3>
+                      <p class="related-post-description">
+                        {relatedPost.excerpt}
+                      </p>
+                    </a>
+                  ))}
+                </div>
+              </aside>
+            )
+          }
+
+          <div class="blog-post-cta">
+            <h2>Хотите снизить тревогу?</h2>
+            <p>Запишитесь на консультацию</p>
+            <a href="/contacts" class="btn">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .blog-article {
+    background: #ecfdf9;
+  }
+
+  .blog-post {
+    max-width: 760px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+  }
+
+  .blog-post-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .meta {
+    font-size: 0.95rem;
+    color: #7a8b90;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .blog-post h1 {
+    margin: 1rem 0 0;
+    font-size: clamp(2.25rem, 4vw, 3rem);
+    color: #1f2a2e;
+  }
+
+  .blog-post-image {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin: 2rem 0;
+    box-shadow: 0 18px 40px rgba(31, 42, 46, 0.12);
+  }
+
+  .blog-post-content {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #1f2a2e;
+  }
+
+  .blog-post-content :global(h2) {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: #1f2a2e;
+  }
+
+  .blog-post-content :global(h3) {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: #1f2a2e;
+  }
+
+  .blog-post-content :global(p) {
+    margin-bottom: 1.5rem;
+    color: #545454;
+  }
+
+  .blog-post-content :global(ul),
+  .blog-post-content :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .blog-post-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-posts {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(31, 42, 46, 0.08);
+  }
+
+  .related-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .related-post-card {
+    text-decoration: none;
+    color: inherit;
+    padding: 1.25rem;
+    border-radius: 12px;
+    border: 1px solid rgba(58, 141, 255, 0.2);
+    background: white;
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .related-post-card:hover {
+    transform: translateY(-4px);
+    border-color: #3a8dff;
+  }
+
+  .related-post-description {
+    color: #545454;
+    font-size: 0.95rem;
+    margin: 0.5rem 0 0;
+  }
+
+  .blog-post-cta {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: #3a8dff;
+    border-radius: 16px;
+    text-align: center;
+    color: white;
+  }
+
+  .blog-post-cta .btn {
+    background: white;
+    color: #3a8dff;
+    margin-top: 1rem;
+  }
+
+  .blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    padding: 0.25rem 0.9rem;
+    background: #f4f9f7;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: #3a8dff;
+    border: 1px solid rgba(58, 141, 255, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .blog-post {
+      padding-bottom: 2rem;
+    }
+
+    .blog-post-cta {
+      padding: 2rem;
+    }
+  }
+</style>

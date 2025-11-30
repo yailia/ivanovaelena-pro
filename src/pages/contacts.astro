@@ -1,0 +1,160 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Контакты - Психолог Лена" description="Свяжитесь со мной: Telegram, WhatsApp, Email">
+	<Header />
+	<main>
+		<section class="section">
+			<div class="container">
+				<h1>Контакты</h1>
+				
+				<div class="contacts-grid">
+					<div class="contacts-info">
+						<h2>Свяжитесь со мной</h2>
+						<ul class="contacts-list">
+							<li>
+								<strong>Telegram:</strong>
+								<a href="https://t.me/" target="_blank" rel="noopener">@username</a>
+							</li>
+							<li>
+								<strong>WhatsApp:</strong>
+								<a href="https://wa.me/" target="_blank" rel="noopener">+7 (XXX) XXX-XX-XX</a>
+							</li>
+							<li>
+								<strong>Email:</strong>
+								<a href="mailto:">email@example.com</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="contacts-form">
+						<h2>Форма записи</h2>
+						<form class="form">
+							<div class="form-group">
+								<label for="name">Имя</label>
+								<input type="text" id="name" name="name" required />
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="email" id="email" name="email" required />
+							</div>
+							<div class="form-group">
+								<label for="phone">Телефон</label>
+								<input type="tel" id="phone" name="phone" />
+							</div>
+							<div class="form-group">
+								<label for="message">Сообщение</label>
+								<textarea id="message" name="message" rows="5"></textarea>
+							</div>
+							<button type="submit" class="btn">Отправить</button>
+						</form>
+					</div>
+				</div>
+
+				<div class="contacts-notice">
+					<h3>Важная информация</h3>
+					<ul>
+						<li><strong>Отмена:</strong> Пожалуйста, отменяйте запись не менее чем за 24 часа.</li>
+						<li><strong>Конфиденциальность:</strong> Все данные строго конфиденциальны.</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.contacts-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+		margin-top: 3rem;
+	}
+
+	.contacts-list {
+		list-style: none;
+		padding: 0;
+		margin: 2rem 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.contacts-list li {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.contacts-list a {
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+
+	.contacts-list a:hover {
+		text-decoration: underline;
+	}
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		margin-top: 2rem;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.form-group label {
+		font-weight: 500;
+		color: var(--color-text-primary);
+	}
+
+	.form-group input,
+	.form-group textarea {
+		padding: 0.75rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-button);
+		font-size: var(--font-size-body);
+		font-family: inherit;
+	}
+
+	.form-group input:focus,
+	.form-group textarea:focus {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
+	}
+
+	.contacts-notice {
+		margin-top: 3rem;
+		padding: 2rem;
+		background: var(--color-bg-primary);
+		border-radius: var(--radius-card);
+	}
+
+	.contacts-notice ul {
+		margin-top: 1rem;
+		padding-left: 1.5rem;
+	}
+
+	.contacts-notice li {
+		margin-bottom: 0.75rem;
+	}
+
+	@media (max-width: 768px) {
+		.contacts-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+
+
+

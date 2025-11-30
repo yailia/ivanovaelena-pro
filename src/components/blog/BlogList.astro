@@ -1,0 +1,40 @@
+---
+import type { BlogPost } from '../../types/blog';
+import BlogCard from './BlogCard.astro';
+
+interface Props {
+	posts: BlogPost[];
+}
+
+const { posts } = Astro.props;
+---
+
+<div class="blog-list">
+	{posts.length > 0 ? (
+		<div class="blog-list-grid">
+			{posts.map((post) => (
+				<BlogCard post={post} />
+			))}
+		</div>
+	) : (
+		<p class="blog-list-empty">Статьи появятся здесь скоро.</p>
+	)}
+</div>
+
+<style>
+	.blog-list-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.blog-list-empty {
+		text-align: center;
+		color: var(--color-text-secondary);
+		padding: 3rem;
+	}
+</style>
+
+
+
+

@@ -1,0 +1,285 @@
+---
+const audienceCards = [
+  {
+    title: "Специалисты, работающие с технологиями",
+    description:
+      "Если высокая рабочая нагрузка и постоянные сроки вызывают тревожность, помогаю восстановить концентрацию и эмоциональное равновесие",
+    image: "/images/who/it-workers.png",
+  },
+  {
+    title: "Работающие родители",
+    description:
+      "Баланс между профессиональными обязанностями и семейной жизнью становится проще при системной работе с тревожностью",
+    image: "/images/who/moms.png",
+  },
+  {
+    title: "Профессионалы с высокой нагрузкой",
+    description:
+      "Для тех, кто стремится сохранять продуктивность и эффективность без эмоционального истощения",
+    image: "/images/who/startups.png",
+  },
+  {
+    title: "Сознательные и целеустремлённые",
+    description:
+      "Если внутренний шум и постоянные мысли мешают сосредоточиться и развиваться, помогаю упорядочить мысли и снизить тревожность",
+    image: "/images/who/proactive.png",
+  },
+  {
+    title: "Усталость и эмоциональное истощение",
+    description:
+      "Снижаем тревожность и возвращаем силы для спокойной и продуктивной жизни",
+    image: "/images/who/tired.png",
+  },
+  {
+    title: "Запрос на продуктивность",
+    description:
+      "Помогаю структурировать мысли и восстанавливать концентрацию для эффективной работы и личной жизни",
+    image: "/images/who/effective.png",
+  },
+];
+---
+
+<section class="target-audience-section">
+  <div class="background-shapes"></div>
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Для кого это</h2>
+      <p class="section-subtitle">
+        Если вы чувствуете усталость, тревогу или хотите вернуть продуктивность
+      </p>
+    </div>
+    <div class="audience-grid">
+      {
+        audienceCards.map((card) => (
+          <div class="audience-card">
+            <div
+              class="card-background"
+              style={`background-image: url('${card.image}')`}
+            />
+            <div class="card-gradient" />
+            <div class="card-content">
+              <h3 class="card-title">{card.title}</h3>
+              <p class="card-description">{card.description}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .target-audience-section {
+    padding: var(--spacing-section) 0;
+    background-color: var(--color-bg-primary);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .background-shapes::before,
+  .background-shapes::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+
+  .background-shapes::before {
+    width: 400px;
+    height: 400px;
+    background: #e3f0ff;
+    top: -100px;
+    right: -100px;
+  }
+
+  .background-shapes::after {
+    width: 300px;
+    height: 300px;
+    background: #d0e7ff;
+    bottom: -50px;
+    left: -50px;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-family: var(--font-family-primary);
+    font-size: clamp(2.25rem, 4vw, 2.5rem); /* 36-40px */
+    font-weight: 700; /* Bold */
+    color: #0a1f44;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-family: var(--font-family-primary);
+    font-size: 1.25rem; /* 20px */
+    font-weight: 400; /* Regular */
+    color: #4b4b4b;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .audience-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    min-height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .audience-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .audience-card.visible:hover {
+    transform: translateY(0) scale(1.05);
+    box-shadow: 0 12px 32px rgba(58, 141, 255, 0.2);
+  }
+
+  .card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(4px);
+    transform: scale(1.1);
+    z-index: 0;
+  }
+
+  .card-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.6) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    z-index: 0.5;
+  }
+
+  .card-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .card-title {
+    font-family: var(--font-family-primary);
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600; /* SemiBold */
+    color: #0a1f44;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+  }
+
+  .card-description {
+    font-family: var(--font-family-primary);
+    font-size: 0.875rem; /* 14px */
+    font-weight: 400; /* Regular */
+    color: #4b4b4b;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1024px) {
+    .audience-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .audience-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".audience-card");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const card = entry.target;
+            const index = Array.from(cards).indexOf(card);
+            const delay = index * 100; // Задержка 100ms между карточками
+
+            setTimeout(() => {
+              card.classList.add("visible");
+            }, delay);
+          } else {
+            entry.target.classList.remove("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px 100px 0px", // Запускается когда карточка ниже во viewport
+      }
+    );
+
+    cards.forEach((card) => {
+      observer.observe(card);
+    });
+  });
+</script>

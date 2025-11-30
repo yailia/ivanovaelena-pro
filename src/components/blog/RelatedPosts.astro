@@ -1,0 +1,45 @@
+---
+import type { BlogPost } from '../../types/blog';
+import BlogCard from './BlogCard.astro';
+
+interface Props {
+	posts: BlogPost[];
+	currentPostId?: string;
+}
+
+const { posts, currentPostId } = Astro.props;
+const relatedPosts = posts.filter((p) => p.id !== currentPostId).slice(0, 3);
+---
+
+{relatedPosts.length > 0 && (
+	<aside class="related-posts">
+		<h2>Похожие материалы</h2>
+		<div class="related-posts-grid">
+			{relatedPosts.map((post) => (
+				<BlogCard post={post} />
+			))}
+		</div>
+	</aside>
+)}
+
+<style>
+	.related-posts {
+		margin-top: 4rem;
+		padding-top: 3rem;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.related-posts h2 {
+		margin-bottom: 2rem;
+	}
+
+	.related-posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1.5rem;
+	}
+</style>
+
+
+
+

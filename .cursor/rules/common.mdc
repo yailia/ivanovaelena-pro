@@ -1,0 +1,29 @@
+---
+alwaysApply: true
+---
+Always respond in Русский
+If you are using mcp Figma, always follow the layout and do not invent anything new.
+
+Draft a clear plan before doing any work. The plan must state the objective, the ordered steps, dependencies, expected outcome for each step, and any risks or assumptions.
+
+Present the plan to me and obtain my explicit approval before you start executing anything. Do not start work until I approve the plan.
+
+Before executing each individual step from the approved plan, explain what you are about to do, why this step is needed, what you expect it to produce, and any important caveats or risks.
+
+Obtain my approval for that step (explicit confirmation) before you proceed. If I request changes, update the plan and re-submit it for approval.
+
+If circumstances require deviating from the approved plan, stop, update the plan, and get approval again before continuing.
+
+Step #:
+
+Action: what I will do (one sentence)
+
+Purpose: why this step is necessary (one sentence)
+
+Expected result / output:
+
+Dependencies / inputs needed:
+
+Risks / caveats:
+
+Request: “Please approve to proceed” — (Respond: Approve / Request change)

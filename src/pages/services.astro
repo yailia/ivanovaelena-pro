@@ -1,0 +1,65 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Услуги - Психолог Лена" description="Форматы работы: индивидуальная терапия, работа с тревогой, пакеты">
+	<Header />
+	<main>
+		<section class="section">
+			<div class="container">
+				<h1>Услуги</h1>
+				
+				<div class="services-grid">
+					<div class="card service-card">
+						<h2>Индивидуальная терапия</h2>
+						<p>Работа один на один с фокусом на ваши конкретные задачи.</p>
+						<a href="/contacts" class="btn">Записаться</a>
+					</div>
+
+					<div class="card service-card">
+						<h2>Работа с тревогой</h2>
+						<p>Специализированная программа для снижения тревоги методами КПТ.</p>
+						<a href="/services/anxiety" class="btn">Подробнее</a>
+					</div>
+
+					<div class="card service-card">
+						<h2>Первая консультация бесплатно</h2>
+						<p>Диагностическая консультация для определения целей и плана работы.</p>
+						<a href="/contacts" class="btn">Записаться</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-top: 3rem;
+	}
+
+	.service-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.service-card h2 {
+		margin: 0;
+	}
+
+	.service-card p {
+		color: var(--color-text-secondary);
+		flex: 1;
+	}
+</style>
+
+
+
+

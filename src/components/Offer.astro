@@ -1,0 +1,103 @@
+---
+---
+
+<section class="offer-section">
+	<div class="container">
+		<div class="offer-content">
+			<h2 class="offer-title">Помогаю вернуть силы, спокойствие и способность справляться с нагрузкой.</h2>
+			<div class="offer-points">
+				<div class="offer-point">
+					<div class="offer-point-icon">✓</div>
+					<p class="offer-point-text">Работаем через четкую структуру</p>
+				</div>
+				<div class="offer-point">
+					<div class="offer-point-icon">✓</div>
+					<p class="offer-point-text">Результат ощущается уже в первые недели</p>
+				</div>
+			</div>
+			<a href="/contacts" class="btn btn-primary">Записаться</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.offer-section {
+		padding: var(--spacing-section) 0;
+		background-color: white;
+	}
+
+	.offer-content {
+		max-width: 800px;
+		margin: 0 auto;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.offer-title {
+		font-size: var(--font-size-h2);
+		font-weight: 500;
+		color: var(--color-text-primary);
+		line-height: 1.3;
+		margin: 0;
+	}
+
+	.offer-points {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.offer-point {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.offer-point-icon {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		background-color: var(--color-success);
+		color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.2rem;
+		font-weight: 500;
+		flex-shrink: 0;
+	}
+
+	.offer-point-text {
+		font-size: var(--font-size-body);
+		color: var(--color-text-primary);
+		margin: 0;
+		text-align: left;
+	}
+
+	.btn-primary {
+		background-color: var(--color-accent);
+		color: white;
+		align-self: center;
+	}
+
+	.btn-primary:hover {
+		background-color: var(--color-accent-alt);
+	}
+
+	@media (max-width: 768px) {
+		.offer-points {
+			align-items: flex-start;
+		}
+
+		.offer-point {
+			width: 100%;
+		}
+	}
+</style>
+
+
+
+

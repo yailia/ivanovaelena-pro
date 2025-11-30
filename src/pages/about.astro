@@ -1,0 +1,64 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Обо мне - Психолог Лена" description="Квалификация, опыт и стиль работы психолога Лены">
+	<Header />
+	<main>
+		<section class="section">
+			<div class="container">
+				<h1>Обо мне</h1>
+				
+				<div class="about-content">
+					<div class="about-section">
+						<h2>Квалификация</h2>
+						<p>Информация о квалификации и образовании.</p>
+					</div>
+
+					<div class="about-section">
+						<h2>Опыт</h2>
+						<p>Опыт работы и специализация.</p>
+					</div>
+
+					<div class="about-section">
+						<h2>Стиль работы</h2>
+						<p>Как я работаю с клиентами.</p>
+					</div>
+
+					<div class="about-section">
+						<h2>Сертификаты</h2>
+						<p>Сертификаты и дополнительное образование.</p>
+					</div>
+
+					<div class="about-section">
+						<h2>История подхода</h2>
+						<p>Как я пришла к КПТ и почему выбрала этот метод.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.about-content {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+		margin-top: 3rem;
+	}
+
+	.about-section {
+		padding: 2rem;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+	}
+</style>
+
+
+
+
