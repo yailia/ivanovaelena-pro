@@ -92,6 +92,33 @@ async function sendTelegramMessage(text) {
   }
 }
 
+// Форматирование блока источника трафика
+function formatTrackingInfo(data) {
+  const { referrer, utm_source, utm_medium, utm_campaign, utm_term, utm_content } = data;
+  
+  const parts = [];
+  
+  if (referrer) {
+    // Извлекаем домен из referrer для краткости
+    try {
+      const url = new URL(referrer);
+      parts.push(`🔗 <b>Откуда:</b> ${escapeHtml(url.hostname)}`);
+    } catch {
+      parts.push(`🔗 <b>Откуда:</b> ${escapeHtml(referrer)}`);
+    }
+  }
+  
+  if (utm_source) parts.push(`📊 <b>Источник:</b> ${escapeHtml(utm_source)}`);
+  if (utm_medium) parts.push(`📢 <b>Канал:</b> ${escapeHtml(utm_medium)}`);
+  if (utm_campaign) parts.push(`🎯 <b>Кампания:</b> ${escapeHtml(utm_campaign)}`);
+  if (utm_term) parts.push(`🔑 <b>Ключевое слово:</b> ${escapeHtml(utm_term)}`);
+  if (utm_content) parts.push(`📝 <b>Объявление:</b> ${escapeHtml(utm_content)}`);
+  
+  if (parts.length === 0) return '';
+  
+  return `\n\n📈 <b>Источник трафика:</b>\n${parts.join('\n')}`;
+}
+
 // Форматирование сообщения
 function formatMessage(data) {
   const { name, contactMethod, contact, message, email, phone, date, time, type } = data;
@@ -108,6 +135,9 @@ function formatMessage(data) {
   const contactLabel = methodIcons[contactMethod] || '📞 Контакт';
   const contactValue = contact || email || phone || 'не указан';
   
+  // Блок источника трафика
+  const trackingInfo = formatTrackingInfo(data);
+  
   // Если это запись на консультацию
   if (type === 'booking' && date && time) {
     const formattedDate = new Date(date).toLocaleDateString('ru-RU', {
@@ -123,7 +153,7 @@ function formatMessage(data) {
 ${contactLabel}: ${escapeHtml(contactValue)}
 
 🗓 <b>Дата:</b> ${formattedDate}
-⏰ <b>Время:</b> ${escapeHtml(time)}
+⏰ <b>Время:</b> ${escapeHtml(time)}${trackingInfo}
 
 🕐 <i>Заявка от ${timestamp}</i>`;
   }
@@ -135,7 +165,7 @@ ${contactLabel}: ${escapeHtml(contactValue)}
 ${contactLabel}: ${escapeHtml(contactValue)}
 
 💬 <b>Сообщение:</b>
-${message ? escapeHtml(message) : 'не указано'}
+${message ? escapeHtml(message) : 'не указано'}${trackingInfo}
 
 🕐 <i>${timestamp}</i>`;
 }

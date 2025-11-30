@@ -140,6 +140,42 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 </div>
 
 <script>
+	// === Сбор UTM-меток и referrer ===
+	function getUTMParams(): Record<string, string> {
+		const params = new URLSearchParams(window.location.search);
+		const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+		const utm: Record<string, string> = {};
+		
+		utmKeys.forEach(key => {
+			const value = params.get(key);
+			if (value) utm[key] = value;
+		});
+		
+		return utm;
+	}
+
+	function saveTrackingData() {
+		// Сохраняем только при первом визите (чтобы не перезаписать при переходах по сайту)
+		if (!sessionStorage.getItem('tracking_saved')) {
+			const utm = getUTMParams();
+			const referrer = document.referrer || '';
+			
+			sessionStorage.setItem('referrer', referrer);
+			sessionStorage.setItem('utm_data', JSON.stringify(utm));
+			sessionStorage.setItem('tracking_saved', 'true');
+		}
+	}
+
+	function getTrackingData(): { referrer: string; utm: Record<string, string> } {
+		return {
+			referrer: sessionStorage.getItem('referrer') || document.referrer || '',
+			utm: JSON.parse(sessionStorage.getItem('utm_data') || '{}')
+		};
+	}
+
+	// Сохраняем данные при загрузке страницы
+	saveTrackingData();
+
 	// === Модалка ===
 	const modal = document.getElementById('booking-modal');
 	const openButtons = document.querySelectorAll('[data-open-booking]');
@@ -244,13 +280,18 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 		else if (contactMethod === 'phone') contactValue = formData.get('phone') as string;
 		else if (contactMethod === 'email') contactValue = formData.get('email') as string;
 
+		// Получаем данные трекинга
+		const tracking = getTrackingData();
+
 		const data = {
 			name: formData.get('name'),
 			contactMethod: contactMethod,
 			contact: contactValue,
 			date: formData.get('date'),
 			time: formData.get('time'),
-			type: 'booking'
+			type: 'booking',
+			referrer: tracking.referrer,
+			...tracking.utm
 		};
 
 		try {
