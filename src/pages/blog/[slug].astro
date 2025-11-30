@@ -20,11 +20,12 @@ const { Content } = await entry.render();
 
 // Получаем похожие посты
 const allPosts = await getCollection("blog");
+const entryTags = entry.data.tags || [];
 const relatedPosts = allPosts
   .filter(
     (p) =>
       p.id !== entry.id &&
-      p.data.tags.some((tag) => entry.data.tags.includes(tag))
+      (p.data.tags || []).some((tag) => entryTags.includes(tag))
   )
   .slice(0, 3)
   .map(entryToBlogPost);
