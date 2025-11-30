@@ -253,6 +253,10 @@ const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 		});
 	});
 
+	// Инициализация: устанавливаем правильные типы для всех полей при загрузке
+	const defaultMethod = (form?.querySelector('input[name="contactMethod"]:checked') as HTMLInputElement)?.value || 'telegram';
+	switchContactMethod(defaultMethod);
+
 	// === Отправка формы ===
 	const submitBtn = document.getElementById('booking-submit') as HTMLButtonElement;
 	const statusEl = document.getElementById('booking-status') as HTMLDivElement;
