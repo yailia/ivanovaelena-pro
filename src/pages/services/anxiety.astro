@@ -2,13 +2,31 @@
 import Layout from '../../components/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import SchemaOrg from '../../components/seo/SchemaOrg.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
 ---
 
-<Layout title="Работа с тревогой - Психолог Лена" description="Специализированная программа для снижения тревоги методами КПТ">
+<Layout 
+	title="Работа с тревогой методами КПТ — психолог Елена Иванова"
+	description="Специализированная программа для снижения тревоги методами когнитивно-поведенческой терапии. Научно обоснованный подход с доказанной эффективностью."
+>
+	<!-- Schema.org Service -->
+	<SchemaOrg schema={{
+		type: 'Service',
+		name: 'Работа с тревогой методами КПТ',
+		description: 'Специализированная программа для снижения тревоги методами когнитивно-поведенческой терапии',
+		serviceType: 'Когнитивно-поведенческая терапия',
+		providerName: 'Елена Иванова',
+	}} />
+
 	<Header />
 	<main>
 		<section class="section">
 			<div class="container">
+				<Breadcrumbs items={[
+					{ name: 'Услуги', url: '/services' },
+					{ name: 'Работа с тревогой', url: '/services/anxiety' },
+				]} />
 				<h1>Работа с тревогой</h1>
 				
 				<div class="anxiety-content">

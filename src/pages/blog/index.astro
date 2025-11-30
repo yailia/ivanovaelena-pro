@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
 import { getCollection } from 'astro:content';
 import { entryToBlogPost } from '../../utils/content';
 import { formatDate } from '../../utils/date';
@@ -12,11 +13,17 @@ const posts = blogEntries
 	.sort((a, b) => b.date.getTime() - a.date.getTime());
 ---
 
-<Layout title="Блог - Психолог Лена" description="Свежие материалы о тревоге, КПТ и саморегуляции">
+<Layout 
+	title="Блог психолога — статьи о тревоге, КПТ и саморегуляции | Елена Иванова"
+	description="Полезные статьи психолога Елены Ивановой: техники КПТ, работа с тревогой, управление стрессом, осознанность и саморегуляция."
+>
 	<Header />
 	<main class="blog-page">
 		<section class="section">
 			<div class="container">
+				<Breadcrumbs items={[
+					{ name: 'Блог', url: '/blog' },
+				]} />
 				<header class="blog-hero">
 					<p class="eyebrow">Осознанность • КПТ • Поддержка</p>
 					<h1>Блог</h1>

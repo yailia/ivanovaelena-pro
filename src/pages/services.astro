@@ -2,14 +2,35 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+
+const siteUrl = 'https://ivanovaelena.pro';
 ---
 
-<Layout title="Услуги - Психолог Лена" description="Форматы работы: индивидуальная терапия, работа с тревогой, трансформационные игры, коучинг">
+<Layout 
+	title="Услуги психолога — консультации онлайн и офлайн | Елена Иванова"
+	description="Услуги психолога Елены Ивановой: онлайн консультации, работа с тревогой (КПТ), трансформационные игры, коучинг. Первая консультация бесплатно."
+>
+	<!-- Schema.org Service -->
+	<SchemaOrg schema={{
+		type: 'Service',
+		name: 'Психологические консультации',
+		description: 'Индивидуальные консультации для работы с тревогой, стрессом и эмоциональным выгоранием методами КПТ',
+		serviceType: 'Психологическое консультирование',
+		providerName: 'Елена Иванова',
+		price: '3500',
+		priceCurrency: 'RUB',
+	}} />
+
 	<Header />
 	<main>
 		<!-- Hero Section -->
 		<section class="hero-section">
 			<div class="container">
+				<Breadcrumbs items={[
+					{ name: 'Услуги', url: '/services' },
+				]} />
 				<h1 class="page-title">Услуги и формат работы</h1>
 				<p class="page-subtitle">Выберите удобный формат консультаций и работы над вашим запросом</p>
 			</div>

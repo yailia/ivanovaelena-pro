@@ -1,13 +1,29 @@
 ---
 import '../styles/global.css';
 import BookingModal from './BookingModal.astro';
+import SEOHead from './seo/SEOHead.astro';
 
 interface Props {
 	title: string;
 	description?: string;
+	canonical?: string;
+	ogImage?: string;
+	ogType?: 'website' | 'article';
+	articlePublishedTime?: string;
+	articleModifiedTime?: string;
+	noindex?: boolean;
 }
 
-const { title, description = 'Психолог, работаю с тревогой и стрессом методами КПТ' } = Astro.props;
+const { 
+	title, 
+	description = 'Психолог Елена Иванова. Помогаю справиться с тревогой и стрессом методами КПТ. Онлайн консультации.',
+	canonical,
+	ogImage = '/og-default.svg',
+	ogType = 'website',
+	articlePublishedTime,
+	articleModifiedTime,
+	noindex = false,
+} = Astro.props;
 ---
 
 <style>
@@ -26,10 +42,21 @@ const { title, description = 'Психолог, работаю с тревого
 <html lang="ru">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		
+		<!-- SEO Meta Tags -->
+		<SEOHead 
+			title={title}
+			description={description}
+			canonical={canonical}
+			ogImage={ogImage}
+			ogType={ogType}
+			articlePublishedTime={articlePublishedTime}
+			articleModifiedTime={articleModifiedTime}
+			noindex={noindex}
+		/>
 		
 		<!-- Шрифты -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -37,6 +64,8 @@ const { title, description = 'Психолог, работаю с тревого
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
 		
 		<title>{title}</title>
+		
+		<slot name="head" />
 	</head>
 	<body>
 		<div class="page-wrapper">

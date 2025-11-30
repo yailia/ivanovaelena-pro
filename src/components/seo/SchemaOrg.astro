@@ -1,0 +1,202 @@
+---
+/**
+ * Schema.org JSON-LD Component
+ * Компонент для добавления структурированных данных
+ */
+
+export interface OrganizationSchema {
+  type: 'Organization';
+  name: string;
+  description: string;
+  url: string;
+  telephone?: string;
+  email?: string;
+  address?: {
+    locality: string;
+    country: string;
+  };
+  serviceType?: string[];
+  sameAs?: string[];
+}
+
+export interface PersonSchema {
+  type: 'Person';
+  name: string;
+  jobTitle: string;
+  description: string;
+  url: string;
+  image?: string;
+  knowsAbout?: string[];
+}
+
+export interface ArticleSchema {
+  type: 'Article';
+  headline: string;
+  description: string;
+  image?: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName: string;
+  authorUrl?: string;
+  url: string;
+}
+
+export interface ServiceSchema {
+  type: 'Service';
+  name: string;
+  description: string;
+  serviceType: string;
+  providerName: string;
+  price?: string;
+  priceCurrency?: string;
+}
+
+export interface FAQSchema {
+  type: 'FAQ';
+  questions: Array<{
+    question: string;
+    answer: string;
+  }>;
+}
+
+export interface BreadcrumbSchema {
+  type: 'Breadcrumb';
+  items: Array<{
+    name: string;
+    url: string;
+  }>;
+}
+
+type SchemaType = OrganizationSchema | PersonSchema | ArticleSchema | ServiceSchema | FAQSchema | BreadcrumbSchema;
+
+interface Props {
+  schema: SchemaType;
+}
+
+const { schema } = Astro.props;
+
+const siteUrl = 'https://ivanovaelena.pro';
+
+function generateSchema(schema: SchemaType): object {
+  switch (schema.type) {
+    case 'Organization':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'ProfessionalService',
+        name: schema.name,
+        description: schema.description,
+        url: schema.url,
+        telephone: schema.telephone,
+        email: schema.email,
+        address: schema.address ? {
+          '@type': 'PostalAddress',
+          addressLocality: schema.address.locality,
+          addressCountry: schema.address.country,
+        } : undefined,
+        priceRange: '₽₽',
+        areaServed: {
+          '@type': 'Country',
+          name: 'Россия',
+        },
+        serviceType: schema.serviceType,
+        sameAs: schema.sameAs,
+      };
+
+    case 'Person':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: schema.name,
+        jobTitle: schema.jobTitle,
+        description: schema.description,
+        url: schema.url,
+        image: schema.image,
+        knowsAbout: schema.knowsAbout,
+      };
+
+    case 'Article':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: schema.headline,
+        description: schema.description,
+        image: schema.image,
+        datePublished: schema.datePublished,
+        dateModified: schema.dateModified || schema.datePublished,
+        author: {
+          '@type': 'Person',
+          name: schema.authorName,
+          url: schema.authorUrl || `${siteUrl}/about`,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Психолог Елена Иванова',
+          logo: {
+            '@type': 'ImageObject',
+            url: `${siteUrl}/logo.png`,
+          },
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': schema.url,
+        },
+      };
+
+    case 'Service':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: schema.name,
+        description: schema.description,
+        serviceType: schema.serviceType,
+        provider: {
+          '@type': 'Person',
+          name: schema.providerName,
+        },
+        areaServed: {
+          '@type': 'Country',
+          name: 'Россия',
+        },
+        offers: schema.price ? {
+          '@type': 'Offer',
+          price: schema.price,
+          priceCurrency: schema.priceCurrency || 'RUB',
+        } : undefined,
+      };
+
+    case 'FAQ':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: schema.questions.map(q => ({
+          '@type': 'Question',
+          name: q.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: q.answer,
+          },
+        })),
+      };
+
+    case 'Breadcrumb':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: schema.items.map((item, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: item.name,
+          item: item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}`,
+        })),
+      };
+
+    default:
+      return {};
+  }
+}
+
+const jsonLd = generateSchema(schema);
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd, null, 0)} />
+

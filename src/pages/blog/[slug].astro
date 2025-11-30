@@ -2,6 +2,8 @@
 import Layout from "../../components/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import SchemaOrg from "../../components/seo/SchemaOrg.astro";
+import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
 import { getCollection, render } from "astro:content";
 import { entryToBlogPost } from "../../utils/content";
 import { formatDate } from "../../utils/date";
@@ -33,16 +35,49 @@ const relatedPosts = allPosts
   )
   .slice(0, 3)
   .map(entryToBlogPost);
+
+// SEO данные
+const siteUrl = "https://ivanovaelena.pro";
+const articleUrl = `${siteUrl}/blog/${post.id}`;
+const dateISO = new Date(post.date).toISOString();
+const ogImage = post.cover || "/og-blog.svg";
 ---
 
 <Layout
-  title={`${post.title} - Блог - Психолог Лена`}
+  title={`${post.title} | Блог психолога Елены Ивановой`}
   description={post.excerpt}
+  ogType="article"
+  ogImage={ogImage}
+  articlePublishedTime={dateISO}
+  articleModifiedTime={dateISO}
 >
+  <!-- Schema.org Article микроразметка -->
+  <SchemaOrg
+    schema={{
+      type: "Article",
+      headline: post.title,
+      description: post.excerpt,
+      image: ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`,
+      datePublished: dateISO,
+      dateModified: dateISO,
+      authorName: "Елена Иванова",
+      authorUrl: `${siteUrl}/about`,
+      url: articleUrl,
+    }}
+  />
+
   <Header />
   <main class="blog-article">
     <article class="section">
       <div class="container">
+        <!-- Хлебные крошки -->
+        <Breadcrumbs
+          items={[
+            { name: "Блог", url: "/blog" },
+            { name: post.title, url: `/blog/${post.id}` },
+          ]}
+        />
+
         <div class="blog-post">
           <header class="blog-post-header">
             <div class="meta">

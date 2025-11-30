@@ -2,13 +2,21 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 ---
 
-<Layout title="Отзывы - Психолог Лена" description="Отзывы клиентов о работе с психологом Леной">
+<Layout 
+	title="Отзывы клиентов — психолог Елена Иванова"
+	description="Отзывы клиентов о работе с психологом Еленой Ивановой. Реальный опыт терапии тревоги и стресса методами КПТ."
+	noindex={true}
+>
 	<Header />
 	<main>
 		<section class="section">
 			<div class="container">
+				<Breadcrumbs items={[
+					{ name: 'Отзывы', url: '/reviews' },
+				]} />
 				<h1>Отзывы</h1>
 				<p class="reviews-intro">Что говорят клиенты о работе со мной.</p>
 				

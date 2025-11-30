@@ -1,0 +1,30 @@
+# Robots.txt для ivanovaelena.pro
+# Оптимизировано для Яндекса
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*?*
+
+# Разрешаем индексацию основных разделов
+Allow: /blog/
+Allow: /services/
+Allow: /about
+Allow: /contacts
+Allow: /video/
+
+# Закрытые страницы
+Disallow: /reviews
+
+# Sitemap
+Sitemap: https://ivanovaelena.pro/sitemap-index.xml
+
+# Яндекс специфичные директивы
+User-agent: Yandex
+Allow: /
+Disallow: /api/
+Clean-param: utm_source&utm_medium&utm_campaign&fbclid&gclid&yclid
+
+# Host директива для Яндекса (указываем основное зеркало)
+Host: https://ivanovaelena.pro
+

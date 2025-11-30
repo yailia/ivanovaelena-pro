@@ -1,0 +1,86 @@
+---
+/**
+ * Breadcrumbs Component
+ * Визуальные хлебные крошки + Schema.org разметка
+ */
+
+import SchemaOrg from './SchemaOrg.astro';
+
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+
+// Добавляем главную страницу в начало, если её нет
+const breadcrumbItems = items[0]?.url === '/' 
+  ? items 
+  : [{ name: 'Главная', url: '/' }, ...items];
+---
+
+<SchemaOrg schema={{ type: 'Breadcrumb', items: breadcrumbItems }} />
+
+<nav class="breadcrumbs" aria-label="Хлебные крошки">
+  <ol class="breadcrumbs-list">
+    {breadcrumbItems.map((item, index) => (
+      <li class="breadcrumbs-item">
+        {index < breadcrumbItems.length - 1 ? (
+          <>
+            <a href={item.url} class="breadcrumbs-link">{item.name}</a>
+            <span class="breadcrumbs-separator" aria-hidden="true">/</span>
+          </>
+        ) : (
+          <span class="breadcrumbs-current" aria-current="page">{item.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    padding: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .breadcrumbs-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .breadcrumbs-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumbs-link {
+    color: #545454;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumbs-link:hover {
+    color: #3a8dff;
+  }
+
+  .breadcrumbs-separator {
+    color: #e3e5e8;
+  }
+
+  .breadcrumbs-current {
+    color: #1f2a2e;
+    font-weight: 500;
+  }
+</style>
+

@@ -2,16 +2,23 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
 
 // URL воркера на Render
 const WORKER_URL = 'https://ivanovaelena-pro.onrender.com';
 ---
 
-<Layout title="Контакты - Психолог Лена" description="Свяжитесь со мной: Telegram, WhatsApp, Email">
+<Layout 
+	title="Контакты — записаться к психологу | Елена Иванова"
+	description="Свяжитесь с психологом Еленой Ивановой: Telegram, WhatsApp, Email. Запишитесь на консультацию онлайн."
+>
 	<Header />
 	<main>
 		<section class="section">
 			<div class="container">
+				<Breadcrumbs items={[
+					{ name: 'Контакты', url: '/contacts' },
+				]} />
 				<h1>Контакты</h1>
 				
 				<div class="contacts-grid">

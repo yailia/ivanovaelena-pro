@@ -2,13 +2,33 @@
 import Layout from '../components/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import SchemaOrg from '../components/seo/SchemaOrg.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+
+const siteUrl = 'https://ivanovaelena.pro';
 ---
 
-<Layout title="Обо мне - Психолог Лена" description="Квалификация, опыт и стиль работы психолога Лены">
+<Layout 
+	title="Обо мне — психолог Елена Иванова | КПТ терапевт"
+	description="Квалификация, опыт и стиль работы психолога Елены Ивановой. Специализация на КПТ, работа с тревогой и стрессом."
+>
+	<!-- Schema.org Person -->
+	<SchemaOrg schema={{
+		type: 'Person',
+		name: 'Елена Иванова',
+		jobTitle: 'Психолог, КПТ-терапевт',
+		description: 'Психолог, специализируюсь на работе с тревогой и стрессом методами когнитивно-поведенческой терапии',
+		url: `${siteUrl}/about`,
+		knowsAbout: ['Когнитивно-поведенческая терапия', 'Тревожные расстройства', 'Стресс', 'Эмоциональное выгорание'],
+	}} />
+
 	<Header />
 	<main>
 		<section class="section">
 			<div class="container">
+				<Breadcrumbs items={[
+					{ name: 'Обо мне', url: '/about' },
+				]} />
 				<h1>Обо мне</h1>
 				
 				<div class="about-content">
