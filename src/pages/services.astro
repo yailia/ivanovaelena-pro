@@ -158,7 +158,7 @@ const siteUrl = 'https://ivanovaelena.pro';
 								<span class="service-detail-value">КПТ</span>
 							</div>
 						</div>
-						<a href="/services/anxiety" class="btn service-btn">Подробнее</a>
+						<a href="/services/anxiety" class="btn service-btn">Подробнее о программе</a>
 					</div>
 
 					<!-- Трансформационная игра "Самосаботаж" -->
@@ -253,6 +253,49 @@ const siteUrl = 'https://ivanovaelena.pro';
 						<p class="info-note">
 							<strong>Важно:</strong> С запросом я помогаю определиться ДО игры!
 						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Полезные материалы -->
+		<section class="resources-section">
+			<div class="container">
+				<h2 class="section-title">Полезные материалы</h2>
+				<p class="section-subtitle">
+					Статьи и тесты, которые помогут лучше понять подход и оценить своё состояние
+				</p>
+				<div class="resources-grid">
+					<div class="resource-group">
+						<h3>О тревоге и работе с ней</h3>
+						<ul class="resource-links">
+							<li><a href="/blog/catastrophizing-stop">Как остановить катастрофизацию</a></li>
+							<li><a href="/blog/name-your-emotion">Назвать эмоцию — первый шаг</a></li>
+							<li><a href="/blog/halt-check">Техника HALT: проверка базовых потребностей</a></li>
+							<li><a href="/blog/stinky-thoughts">Вонючие мысли: работа с навязчивыми идеями</a></li>
+						</ul>
+						<a href="/services/anxiety" class="resource-cta">Узнать о программе работы с тревогой →</a>
+					</div>
+					<div class="resource-group">
+						<h3>О привычках и прокрастинации</h3>
+						<ul class="resource-links">
+							<li><a href="/blog/habits-vs-willpower">Привычки vs сила воли</a></li>
+							<li><a href="/blog/unfinished-business">Незавершённые дела</a></li>
+							<li><a href="/blog/golf-vs-bike">Гольф vs велосипед: про выбор и фокус</a></li>
+						</ul>
+						<a href="/blog" class="resource-cta">Все статьи в блоге →</a>
+					</div>
+					<div class="resource-group">
+						<h3>Быстрые тесты</h3>
+						<p class="resource-description">
+							Если хотите оценить текущее состояние перед консультацией, можете пройти короткие опросники:
+						</p>
+						<ul class="resource-links">
+							<li><a href="/tests/gad-7">GAD‑7 — уровень тревоги</a></li>
+							<li><a href="/tests/phq-9">PHQ‑9 — уровень депрессии</a></li>
+							<li><a href="/tests/hads">HADS — тревога и депрессия</a></li>
+						</ul>
+						<a href="/tests" class="resource-cta">Все тесты →</a>
 					</div>
 				</div>
 			</div>
@@ -494,6 +537,84 @@ const siteUrl = 'https://ivanovaelena.pro';
 		color: var(--color-text-primary);
 	}
 
+	/* Resources Section */
+	.resources-section {
+		padding: var(--spacing-section) 0;
+		background-color: white;
+	}
+
+	.resources-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.resource-group {
+		padding: 2rem;
+		background: var(--color-bg-primary);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.resource-group h3 {
+		font-size: 1.125rem;
+		font-weight: 500;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.resource-description {
+		font-size: var(--font-size-body);
+		color: var(--color-text-secondary);
+		line-height: 1.6;
+		margin: 0 0 0.75rem 0;
+	}
+
+	.resource-links {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		flex: 1;
+	}
+
+	.resource-links li {
+		margin: 0;
+	}
+
+	.resource-links a {
+		font-size: var(--font-size-body);
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		line-height: 1.6;
+		transition: color 0.2s ease;
+		display: block;
+	}
+
+	.resource-links a:hover {
+		color: var(--color-accent);
+	}
+
+	.resource-cta {
+		margin-top: auto;
+		font-size: var(--font-size-body);
+		color: var(--color-accent);
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.resource-cta:hover {
+		color: var(--color-primary);
+	}
+
 	/* CTA Section */
 	.cta-section {
 		padding: var(--spacing-section) 0;
@@ -561,6 +682,10 @@ const siteUrl = 'https://ivanovaelena.pro';
 
 		.cta-card {
 			padding: 2rem var(--spacing-card);
+		}
+
+		.resources-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

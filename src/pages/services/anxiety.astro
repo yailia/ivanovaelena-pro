@@ -1,123 +1,527 @@
 ---
-import Layout from '../../components/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import SchemaOrg from '../../components/seo/SchemaOrg.astro';
-import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import Layout from "../../components/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import SchemaOrg from "../../components/seo/SchemaOrg.astro";
+import Breadcrumbs from "../../components/seo/Breadcrumbs.astro";
 ---
 
-<Layout 
-	title="Работа с тревогой методами КПТ — психолог Елена Иванова"
-	description="Специализированная программа для снижения тревоги методами когнитивно-поведенческой терапии. Научно обоснованный подход с доказанной эффективностью."
+<Layout
+  title="Работа с тревогой методами КПТ — психолог Елена Иванова"
+  description="Специализированная программа для снижения тревоги методами когнитивно-поведенческой терапии. Научно обоснованный подход с доказанной эффективностью."
 >
-	<!-- Schema.org Service -->
-	<SchemaOrg schema={{
-		type: 'Service',
-		name: 'Работа с тревогой методами КПТ',
-		description: 'Специализированная программа для снижения тревоги методами когнитивно-поведенческой терапии',
-		serviceType: 'Когнитивно-поведенческая терапия',
-		providerName: 'Елена Иванова',
-	}} />
+  <!-- Schema.org Service -->
+  <SchemaOrg
+    schema={{
+      type: "Service",
+      name: "Работа с тревогой методами КПТ",
+      description:
+        "Специализированная программа для снижения тревоги методами когнитивно-поведенческой терапии",
+      serviceType: "Когнитивно-поведенческая терапия",
+      providerName: "Елена Иванова",
+    }}
+  />
 
-	<Header />
-	<main>
-		<section class="section">
-			<div class="container">
-				<Breadcrumbs items={[
-					{ name: 'Услуги', url: '/services' },
-					{ name: 'Работа с тревогой', url: '/services/anxiety' },
-				]} />
-				<h1>Работа с тревогой</h1>
-				
-				<div class="anxiety-content">
-					<div class="content-section">
-						<h2>Описание проблемы</h2>
-						<p>Что такое тревога и как она влияет на жизнь.</p>
-					</div>
+  <Header />
+  <main>
+    <section class="section">
+      <div class="container">
+        <Breadcrumbs
+          items={[
+            { name: "Услуги", url: "/services" },
+            { name: "Работа с тревогой", url: "/services/anxiety" },
+          ]}
+        />
+        <h1>Работа с тревогой</h1>
 
-					<div class="content-section">
-						<h2>Как тревога проявляется</h2>
-						<p>Симптомы и признаки тревожного расстройства.</p>
-					</div>
+        <div class="anxiety-content">
+          <div class="content-section">
+            <h2>Описание проблемы</h2>
+            <p>
+              Тревога — естественная реакция организма на стресс,
+              неопределённость или потенциальную опасность. В умеренном виде она
+              помогает адаптироваться и быть внимательнее к тому, что важно.
+            </p>
+            <p>
+              Когда тревога становится постоянной, она мешает работать,
+              отдыхать, строить отношения и принимать решения. Она может
+              провоцировать физические симптомы, снижать концентрацию и
+              ограничивать социальную жизнь.
+            </p>
+            <p>
+              Когнитивно‑поведенческая терапия (КПТ) позволяет работать с
+              тревогой системно: мы исследуем тревожные мысли, формируем новые
+              стратегии поведения и постепенно снижаем уровень постоянного
+              стресса.
+            </p>
+          </div>
 
-					<div class="content-section">
-						<h2>Почему КПТ работает</h2>
-						<p>Научное обоснование эффективности КПТ при работе с тревогой.</p>
-					</div>
+          <div class="content-section">
+            <h2>Как проявляется тревога</h2>
+            <p>
+              Тревога может выглядеть по‑разному, но при тревожных расстройствах
+              чаще всего встречаются:
+            </p>
+            <ul>
+              <li>
+                <strong>Постоянное напряжение и беспокойство</strong><br />
+                ощущение, что «внутри не получается расслабиться», мысли крутятся
+                вокруг одних и тех же переживаний
+              </li>
+              <li>
+                <strong>Физические реакции</strong><br />
+                учащённое сердцебиение, дрожь, мышечное напряжение, «ком» в горле,
+                проблемы со сном, усталость
+              </li>
+              <li>
+                <strong>Сложности с концентрацией и принятием решений</strong
+                ><br />
+                трудно сосредоточиться, «зависание» при выборе, прокрастинация
+              </li>
+              <li>
+                <strong>Катастрофическое мышление</strong><br />
+                ожидание наихудшего сценария, прокручивание в голове «а вдруг…»,
+                переоценка угрозы
+              </li>
+              <li>
+                <strong>Избегание ситуаций и триггеров тревоги</strong><br />
+                отказ от встреч, звонков, публичных выступлений, важных задач, медицинских
+                проверок и т.п.
+              </li>
+            </ul>
+            <p>
+              Раннее распознавание этих симптомов помогает быстрее справиться с
+              тревожным состоянием и не доводить себя до выгорания.
+            </p>
+          </div>
 
-					<div class="content-section">
-						<h2>Результаты</h2>
-						<p>Что вы получите после прохождения программы.</p>
-					</div>
+          <div class="content-section">
+            <h2>Почему при тревоге работает КПТ</h2>
+            <p>
+              КПТ — научно обоснованный подход к работе с тревогой и тревожными
+              расстройствами.<br />
+              В центре внимания — связь между мыслями, эмоциями и поведением. Мы
+              не «отключаем» тревогу, а учимся понимать её сигналы и по‑другому на
+              них реагировать.
+            </p>
+            <p>В работе используются:</p>
+            <ul>
+              <li>
+                <strong>Работа с катастрофизацией</strong><br />
+                замечаем преувеличенные страхи, проверяем их реальность и формируем
+                более реалистичное видение ситуации
+              </li>
+              <li>
+                <strong>Называние и распознавание эмоций</strong><br />
+                учимся понимать, что именно вы сейчас чувствуете, и выбирать более
+                экологичную реакцию
+              </li>
+              <li>
+                <strong>Техника HALT</strong><br />
+                исследуем, не стоит ли за всплеском тревоги базовая потребность:
+                голод, усталость, одиночество, раздражение — и подстраиваем действие
+                под реальную причину
+              </li>
+              <li>
+                <strong>Практические инструменты</strong><br />
+                дыхательные техники, работа с триггерами, поведенческие эксперименты,
+                упражнения на переоценку рисков
+              </li>
+            </ul>
+            <p>
+              На страницах <a href="/blog">блога</a> вы можете найти более подробные
+              инструкции и техники, которые поддерживают процесс между сессиями и
+              помогают закреплять изменения.
+            </p>
+          </div>
 
-					<div class="content-section">
-						<h2>Ожидаемые сроки</h2>
-						<p>Сколько времени занимает работа с тревогой.</p>
-					</div>
+          <div class="content-section">
+            <h2>Как мы будем работать</h2>
+            <p>На консультациях мы:</p>
+            <ul>
+              <li>
+                аккуратно уточняем, как именно проявляется ваша тревога, в каких
+                ситуациях она усиливается;
+              </li>
+              <li>разбираем типичные тревожные мысли и «ловушки мышления»;</li>
+              <li>
+                подбираем упражнения и небольшие шаги, которые можно постепенно
+                внедрять в жизни;
+              </li>
+              <li>
+                отслеживаем изменения: что стало проще, где тревога уменьшилась,
+                где ещё требуется поддержка.
+              </li>
+            </ul>
+            <p>
+              Темп работы подстраивается под ваши возможности и текущее
+              состояние. Важно, чтобы процесс был посильным и безопасным для
+              вас.
+            </p>
+          </div>
 
-					<div class="content-section">
-						<h2>Цена</h2>
-						<p>Стоимость программы.</p>
-					</div>
+          <div class="content-section">
+            <h2>Какие результаты можно ожидать</h2>
+            <p>В ходе работы с тревогой постепенно появляется:</p>
+            <ul>
+              <li>
+                <strong>Умение распознавать свои тревожные мысли</strong><br />
+                вы лучше понимаете, что с вами происходит, и перестаёте пугаться
+                самой тревоги
+              </li>
+              <li>
+                <strong>Навыки снижения тревоги «здесь и сейчас»</strong><br />
+                дыхательные и поведенческие техники, которые помогают уменьшить напряжение
+                в моменте
+              </li>
+              <li>
+                <strong>Больше уверенности в себе и своих решениях</strong><br
+                />
+                меньше сомнений и самокритики, больше опоры на себя
+              </li>
+              <li>
+                <strong
+                  >Улучшение сна, концентрации и эмоциональной устойчивости</strong
+                ><br />
+                становится легче работать, учиться, планировать дела и отдыхать
+              </li>
+              <li>
+                <strong>Более спокойная реакция на стрессовые ситуации</strong
+                ><br />
+                тревога может возникать, но уже не управляет всей вашей жизнью
+              </li>
+            </ul>
+            <p>
+              Каждый человек движется в своём темпе, поэтому результаты и
+              скорость изменений индивидуальны.
+            </p>
+          </div>
 
-					<div class="content-section">
-						<h2>FAQ по тревоге</h2>
-						<div class="faq-list">
-							<div class="faq-item">
-								<h3>Как быстро я почувствую улучшение?</h3>
-								<p>Ответ на вопрос.</p>
-							</div>
-						</div>
-					</div>
+          <div class="content-section">
+            <h2>Примерные сроки</h2>
+            <p>
+              Первые заметные изменения обычно появляются в течение <strong
+                >4–6 недель</strong
+              > регулярной работы. Это может быть:
+            </p>
+            <ul>
+              <li>снижение интенсивности тревоги,</li>
+              <li>появление большего ощущения контроля,</li>
+              <li>улучшение сна и концентрации,</li>
+              <li>более мягкая реакция на привычные триггеры.</li>
+            </ul>
+            <p>
+              Полный курс работы с тревогой часто занимает <strong
+                >2–3 месяца</strong
+              >, в зависимости от исходного состояния, частоты встреч и
+              готовности выполнять небольшие задания между сессиями.
+            </p>
+          </div>
 
-					<div class="cta-section">
-						<h2>Готовы начать работу с тревогой?</h2>
-						<a href="/contacts" class="btn">Записаться</a>
-					</div>
-				</div>
-			</div>
-		</section>
-	</main>
-	<Footer />
+          <div class="content-section">
+            <h2>Формат и стоимость</h2>
+            <p>Работа может проходить:</p>
+            <ul>
+              <li><strong>очно</strong> — в кабинете;</li>
+              <li>
+                <strong>онлайн</strong> — в формате видеосессий, что удобно, если
+                вы живёте в другом городе или цените экономию времени на дорогу.
+              </li>
+            </ul>
+            <p>
+              Стоимость программы зависит от количества сессий и выбранного
+              формата.<br />
+              Точные условия и стоимость можно уточнить через форму на странице <a
+                href="/contacts">«Контакты»</a
+              > или написав мне напрямую удобным для вас способом.
+            </p>
+            <p>
+              Если вы сейчас в состоянии тревоги и хотите обсудить, подойдёт ли
+              вам такой формат работы, вы можете <a href="/contacts"
+                >записаться на консультацию</a
+              > и задать свои вопросы.
+            </p>
+          </div>
+
+          <div class="content-section">
+            <h2>Ответы на частые вопросы о тревоге</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <h3>Как быстро я почувствую улучшение?</h3>
+                <p>
+                  У многих людей первые изменения появляются уже в течение
+                  нескольких сессий: тревога становится менее интенсивной,
+                  появляется больше ясности в мыслях и ощущение, что есть опора
+                  и понятный план действий.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Нужно ли делать упражнения между сессиями?</h3>
+                <p>
+                  Да, домашние задания — важная часть КПТ. Небольшие упражнения
+                  (дыхательные практики, дневник мыслей, отслеживание эмоций и
+                  поведения) помогают закреплять навыки и ускоряют прогресс. Я
+                  подбираю задания так, чтобы они были посильны именно вам.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Можно ли работать с тревогой онлайн?</h3>
+                <p>
+                  Да. Исследования и практика показывают, что онлайн‑формат при
+                  тревожных расстройствах может быть столь же эффективен, как и
+                  очные встречи. Главное — регулярность контакта и готовность
+                  включаться в процесс.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>Что делать, если тревога возвращается после курса?</h3>
+                <p>
+                  Эпизодические подъёмы тревоги возможны. Важная часть нашей
+                  работы — научиться самостоятельно пользоваться освоенными
+                  техниками. При необходимости можно запланировать
+                  поддерживающие сессии или краткий повторный цикл работы.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>
+                  Как понять, что у меня тревожное расстройство, а не просто
+                  реакция на стресс?
+                </h3>
+                <p>
+                  Обратить внимание стоит, если тревога держится почти
+                  постоянно, мешает повседневной жизни, сну, работе и
+                  отношениям, сопровождается физическими симптомами и приводит к
+                  избеганию ситуаций. Точный диагноз ставится на индивидуальной
+                  консультации, где мы подробно разбираем картину вашего
+                  состояния.
+                </p>
+              </div>
+              <div class="faq-item">
+                <h3>
+                  Можно ли совмещать КПТ с другими методами терапии или
+                  медикаментами?
+                </h3>
+                <p>
+                  Да. КПТ хорошо сочетается с другими психотерапевтическими
+                  подходами и лекарственной терапией (по назначению врача), а
+                  также с практиками релаксации и осознанности. При
+                  необходимости мы обсуждаем, как безопасно комбинировать разные
+                  формы поддержки.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Полезные материалы -->
+          <div class="content-section resources-section">
+            <h2>Полезные материалы</h2>
+            <div class="resources-grid">
+              <div class="resource-group">
+                <h3>Статьи о тревоге</h3>
+                <ul class="resource-links">
+                  <li>
+                    <a href="/blog/catastrophizing-stop"
+                      >Как остановить катастрофизацию</a
+                    >
+                  </li>
+                  <li>
+                    <a href="/blog/name-your-emotion"
+                      >Назвать эмоцию — первый шаг к управлению</a
+                    >
+                  </li>
+                  <li>
+                    <a href="/blog/halt-check"
+                      >Техника HALT: проверка базовых потребностей</a
+                    >
+                  </li>
+                  <li>
+                    <a href="/blog/stinky-thoughts"
+                      >Вонючие мысли: как работать с навязчивыми идеями</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="resource-group">
+                <h3>Тест для самонаблюдения</h3>
+                <p class="resource-description">
+                  Если хотите оценить текущий уровень тревоги перед началом
+                  работы, можете пройти тест GAD‑7.
+                </p>
+                <a href="/tests/gad-7" class="btn resource-btn"
+                  >Пройти тест GAD‑7</a
+                >
+                <p class="resource-note">
+                  Результаты теста не заменяют консультацию, но помогают
+                  заметить динамику.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cta-section">
+            <h2>Готовы начать работу с тревогой?</h2>
+            <a href="/contacts" class="btn">Записаться</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Layout>
 
 <style>
-	.anxiety-content {
-		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-		margin-top: 3rem;
-	}
+  .anxiety-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
 
-	.content-section {
-		padding: 2rem;
-		background: white;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-card);
-	}
+  .content-section {
+    padding: 2rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
 
-	.faq-list {
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-		margin-top: 1.5rem;
-	}
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
 
-	.faq-item {
-		padding: 1.5rem;
-		background: var(--color-bg-primary);
-		border-radius: var(--radius-card);
-	}
+  .faq-item {
+    padding: 1.5rem;
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-card);
+  }
 
-	.cta-section {
-		text-align: center;
-		padding: 3rem;
-		background: white;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-card);
-	}
+  .cta-section {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  /* Resources Section */
+  .resources-section {
+    background: var(--color-bg-primary);
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .resource-group {
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .resource-group h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .resource-description {
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .resource-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .resource-links li {
+    margin: 0;
+  }
+
+  .resource-links a {
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    line-height: 1.6;
+    transition: color 0.2s ease;
+    display: block;
+  }
+
+  .resource-links a:hover {
+    color: var(--color-accent);
+  }
+
+  .resource-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .resource-note {
+    font-size: var(--font-size-caption);
+    color: var(--color-text-secondary);
+    margin: 0.75rem 0 0 0;
+    line-height: 1.5;
+  }
+
+  .content-section a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .content-section a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .content-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .content-section li {
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+    padding-left: 0;
+  }
+
+  .content-section li strong {
+    color: var(--color-text-primary);
+    font-weight: 500;
+    display: inline;
+  }
+
+  .content-section li br {
+    display: block;
+    content: "";
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .resources-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
-
-
-
-

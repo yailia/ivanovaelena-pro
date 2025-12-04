@@ -181,9 +181,9 @@ const workAreas = [
 						</div>
 						
 						<p class="hero-description">
-							Работаю с тревогой, выгоранием и депрессивными состояниями методами 
+							Работаю с <a href="/services/anxiety">тревогой</a>, выгоранием и депрессивными состояниями методами 
 							когнитивно-поведенческой терапии. Помогаю разобраться в причинах 
-							эмоциональных трудностей и найти работающие решения.
+							эмоциональных трудностей и найти работающие решения. Подробнее о <a href="/services">форматах работы</a> и <a href="/blog">подходе</a>.
 						</p>
 						
 						<div class="hero-contacts">
@@ -284,7 +284,11 @@ const workAreas = [
 						<h2 class="section-title">Мой метод — КПТ</h2>
 						<p class="method-intro">
 							Я работаю в направлении <strong>когнитивно-поведенческой терапии (КПТ)</strong> — 
-							это научно обоснованный метод с доказанной эффективностью.
+							это научно обоснованный метод с доказанной эффективностью. 
+							В <a href="/blog">блоге</a> я делюсь техниками и практиками КПТ, которые можно применять самостоятельно: 
+							о работе с <a href="/blog/catastrophizing-stop">катастрофизацией</a>, 
+							<a href="/blog/name-your-emotion">назывании эмоций</a>, 
+							<a href="/blog/halt-check">технике HALT</a> и других инструментах саморегуляции.
 						</p>
 						
 						<div class="method-points">
@@ -413,6 +417,46 @@ const workAreas = [
 			</div>
 		</section>
 
+		<!-- Полезные материалы -->
+		<section class="section resources-section">
+			<div class="container">
+				<h2 class="section-title">Полезные материалы</h2>
+				<p class="section-subtitle">
+					Статьи и тесты, которые помогут лучше понять мой подход и оценить своё состояние
+				</p>
+				<div class="resources-grid">
+					<div class="resource-group">
+						<h3>О тревоге и работе с ней</h3>
+						<ul class="resource-links">
+							<li><a href="/blog/catastrophizing-stop">Как остановить катастрофизацию</a></li>
+							<li><a href="/blog/name-your-emotion">Назвать эмоцию — первый шаг к управлению</a></li>
+							<li><a href="/blog/halt-check">Техника HALT: проверка базовых потребностей</a></li>
+							<li><a href="/blog/stinky-thoughts">Вонючие мысли: как работать с навязчивыми идеями</a></li>
+						</ul>
+						<a href="/services/anxiety" class="resource-cta">Узнать о программе работы с тревогой →</a>
+					</div>
+					<div class="resource-group">
+						<h3>Тесты для самонаблюдения</h3>
+						<ul class="resource-links">
+							<li><a href="/tests/gad-7">GAD‑7 — уровень тревоги</a></li>
+							<li><a href="/tests/phq-9">PHQ‑9 — уровень депрессии</a></li>
+							<li><a href="/tests/hads">HADS — тревога и депрессия</a></li>
+						</ul>
+						<a href="/tests" class="resource-cta">Все тесты →</a>
+					</div>
+					<div class="resource-group">
+						<h3>О саморегуляции и осознанности</h3>
+						<ul class="resource-links">
+							<li><a href="/blog/thought-journal">Дневник мыслей: как вести и зачем</a></li>
+							<li><a href="/blog/mindfulness-meditation">Осознанность и медитация</a></li>
+							<li><a href="/blog/values-compass">Компас ценностей</a></li>
+						</ul>
+						<a href="/blog" class="resource-cta">Все статьи в блоге →</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- CTA Section -->
 		<section class="section cta-section">
 			<div class="container">
@@ -509,6 +553,18 @@ const workAreas = [
 		line-height: 1.7;
 		color: var(--color-text-secondary);
 		margin-bottom: 1.5rem;
+	}
+
+	.hero-description a {
+		color: var(--color-accent);
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.hero-description a:hover {
+		color: var(--color-primary);
+		text-decoration: underline;
 	}
 
 	.hero-contacts {
@@ -701,6 +757,18 @@ const workAreas = [
 		margin-bottom: 2rem;
 	}
 
+	.method-intro a {
+		color: var(--color-accent);
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.method-intro a:hover {
+		color: var(--color-primary);
+		text-decoration: underline;
+	}
+
 	.method-points {
 		display: flex;
 		flex-direction: column;
@@ -872,6 +940,76 @@ const workAreas = [
 		color: var(--color-text-secondary);
 	}
 
+	/* Resources Section */
+	.resources-section {
+		background: white;
+	}
+
+	.resources-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.resource-group {
+		padding: 2rem;
+		background: var(--color-bg-primary);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.resource-group h3 {
+		font-size: 1.125rem;
+		font-weight: 500;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.resource-links {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		flex: 1;
+	}
+
+	.resource-links li {
+		margin: 0;
+	}
+
+	.resource-links a {
+		font-size: var(--font-size-body);
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		line-height: 1.6;
+		transition: color 0.2s ease;
+		display: block;
+	}
+
+	.resource-links a:hover {
+		color: var(--color-accent);
+	}
+
+	.resource-cta {
+		margin-top: auto;
+		font-size: var(--font-size-body);
+		color: var(--color-accent);
+		text-decoration: none;
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.resource-cta:hover {
+		color: var(--color-primary);
+	}
+
 	/* CTA Section */
 	.cta-section {
 		background: linear-gradient(135deg, rgba(111, 216, 197, 0.15) 0%, rgba(58, 141, 255, 0.1) 100%);
@@ -1013,7 +1151,8 @@ const workAreas = [
 		}
 
 		.work-areas-grid,
-		.certificates-grid {
+		.certificates-grid,
+		.resources-grid {
 			grid-template-columns: 1fr;
 		}
 
