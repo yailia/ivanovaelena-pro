@@ -12,6 +12,7 @@ Allow: /services/
 Allow: /about
 Allow: /contacts
 Allow: /video/
+Allow: /tests/
 
 # Закрытые страницы
 Disallow: /reviews

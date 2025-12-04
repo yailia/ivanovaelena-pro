@@ -43,6 +43,7 @@
 - [Блог](https://ivanovaelena.pro/blog/) — статьи о психологических техниках и практиках
 - [Контакты](https://ivanovaelena.pro/contacts) — запись на консультацию
 - [Видео](https://ivanovaelena.pro/video/) — видеоматериалы
+ - [Быстрые тесты](https://ivanovaelena.pro/tests) — краткие опросники для самонаблюдения (GAD‑7, PHQ‑9, HADS)
 
 ## Статьи блога
 

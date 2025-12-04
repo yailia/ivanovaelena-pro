@@ -1,0 +1,339 @@
+---
+import Layout from '../../components/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+
+const questions = [
+  'Потеря интереса или удовольствия',
+  'Подавленное настроение',
+  'Проблемы со сном',
+  'Усталость или низкая энергия',
+  'Чувство собственной никчёмности или вины',
+  'Трудности с концентрацией',
+  'Замедленность или раздражительность',
+  'Мысли о смерти или причинении себе вреда',
+  'Изменение аппетита',
+];
+---
+
+<Layout 
+  title="PHQ‑9 — уровень депрессии | Быстрый тест | Елена Иванова"
+  description="PHQ‑9 — опросник из 9 вопросов, который помогает оценить выраженность депрессивной симптоматики за последние две недели. Самонаблюдение без диагнозов."
+>
+  <Header />
+  <main>
+    <section class="section">
+      <div class="container">
+        <Breadcrumbs items={[
+          { name: 'Быстрые тесты', url: '/tests' },
+          { name: 'PHQ‑9 (депрессия)', url: '/tests/phq-9' },
+        ]} />
+
+        <a href="/tests" class="back-link">← Ко всем тестам</a>
+
+        <h1>PHQ‑9 (депрессия)</h1>
+        <p class="intro">
+          Инструкция: отметьте, как часто за последние 2 недели вы испытывали эти состояния.
+        </p>
+
+        <div class="scale-legend">
+          <p><strong>Варианты ответа:</strong></p>
+          <ul>
+            <li>0 – Никогда</li>
+            <li>1 – Несколько дней</li>
+            <li>2 – Более половины дней</li>
+            <li>3 – Почти каждый день</li>
+          </ul>
+        </div>
+
+        <form id="phq9-form" class="test-form">
+          <ol class="questions-list">
+            {questions.map((q, index) => (
+              <li class="question-item">
+                <div class="question-text">
+                  {q}
+                </div>
+                <div class="options">
+                  <label>
+                    <input type="radio" name={`q${index + 1}`} value="0" required={index === 0} />
+                    <span>0 — Никогда</span>
+                  </label>
+                  <label>
+                    <input type="radio" name={`q${index + 1}`} value="1" />
+                    <span>1 — Несколько дней</span>
+                  </label>
+                  <label>
+                    <input type="radio" name={`q${index + 1}`} value="2" />
+                    <span>2 — Более половины дней</span>
+                  </label>
+                  <label>
+                    <input type="radio" name={`q${index + 1}`} value="3" />
+                    <span>3 — Почти каждый день</span>
+                  </label>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <button type="submit" class="btn test-submit">Показать результат</button>
+        </form>
+
+        <div id="phq9-result" class="result" aria-live="polite"></div>
+
+        <div class="disclaimer">
+          <p>
+            Этот тест помогает оценить выраженность депрессивной симптоматики, но сам по себе не ставит диагноз. 
+            На результат могут влиять текущие обстоятельства, усталость и уровень стресса.
+          </p>
+          <p>
+            Если балл высокий или вы узнаёте себя в большей части утверждений, 
+            важно не оставаться с этим в одиночестве и обсудить своё состояние со специалистом.
+          </p>
+          <a href="/contacts" class="btn disclaimer-cta">
+            Обсудить результат на бесплатной консультации
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  const form = document.getElementById('phq9-form');
+  const resultEl = document.getElementById('phq9-result');
+
+  function interpretScore(score) {
+    if (score <= 4) {
+      return {
+        level: 'минимальная депрессия',
+        note: 'Симптомы депрессии не выражены или выражены слабо. Можно использовать этот тест как ориентир и отслеживать динамику, если состояние будет меняться.',
+      };
+    }
+    if (score <= 9) {
+      return {
+        level: 'лёгкая депрессия',
+        note: 'Может ощущаться сниженное настроение, усталость, небольшие изменения интереса к привычным делам. Обратите внимание на отдых, поддержку и нагрузки.',
+      };
+    }
+    if (score <= 14) {
+      return {
+        level: 'умеренная депрессия',
+        note: 'Состояние может заметно влиять на качество жизни, мотивацию и энергию. Может быть полезно обсудить своё самочувствие со специалистом и наметить план поддержки.',
+      };
+    }
+    if (score <= 19) {
+      return {
+        level: 'умеренно‑тяжёлая депрессия',
+        note: 'Симптомы, скорее всего, ощутимо мешают в работе, общении или заботе о себе. Рекомендую рассмотреть возможность обратиться к психологу или психиатру для очной поддержки.',
+      };
+    }
+    return {
+      level: 'тяжёлая депрессия',
+      note: 'Состояние может быть очень тяжёлым и изматывающим. Важно не оставаться с этим одной/одним: стоит как можно скорее обратиться за профессиональной помощью.',
+    };
+  }
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    let score = 0;
+
+    for (let i = 1; i <= 9; i++) {
+      const value = formData.get(`q${i}`);
+      if (value === null) {
+        resultEl.className = 'result result--error';
+        resultEl.textContent = 'Пожалуйста, ответьте на все вопросы.';
+        return;
+      }
+      score += Number(value);
+    }
+
+    const { level, note } = interpretScore(score);
+
+    resultEl.className = 'result result--visible';
+    resultEl.innerHTML = `
+      <p class="result-score">Ваш результат: <strong>${score}</strong> баллов из 27</p>
+      <p class="result-level">Уровень: <strong>${level}</strong></p>
+      <p class="result-note">${note}</p>
+    `;
+
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+  .intro {
+    margin-top: 0.75rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 720px;
+  }
+
+  .scale-legend {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+    background: white;
+    max-width: 520px;
+  }
+
+  .scale-legend ul {
+    margin: 0.5rem 0 0 1.25rem;
+    padding: 0;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .test-form {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .questions-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .question-item {
+    padding: 1.5rem 1.75rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .question-text {
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1.5rem;
+  }
+
+  .options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+  }
+
+  .options input[type="radio"] {
+    accent-color: var(--color-accent);
+  }
+
+  .test-submit {
+    align-self: flex-start;
+    min-width: 200px;
+  }
+
+  .result {
+    margin-top: 2rem;
+    padding: 0;
+    border-radius: var(--radius-card);
+    border: 1px solid transparent;
+    background: transparent;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: all 0.2s ease;
+  }
+
+  .result--visible {
+    padding: 1.5rem 1.75rem;
+    background: rgba(111, 216, 197, 0.06);
+    border-color: var(--color-border);
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .result--error {
+    padding: 1rem 1.25rem;
+    background: rgba(231, 98, 95, 0.08);
+    border-color: var(--color-error);
+    color: var(--color-error);
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .result-score,
+  .result-level,
+  .result-note {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+  }
+
+  .result-note {
+    margin-top: 0.5rem;
+    color: var(--color-text-secondary);
+  }
+
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: var(--radius-card);
+    background: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 820px;
+  }
+
+  .disclaimer-cta {
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .question-item {
+      padding: 1.25rem 1.25rem;
+    }
+
+    .options {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.5rem;
+    }
+
+    .test-submit {
+      width: 100%;
+    }
+
+    .scale-legend,
+    .disclaimer {
+      padding: 1.25rem 1.25rem;
+    }
+  }
+</style>
+
+

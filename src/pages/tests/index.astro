@@ -1,0 +1,146 @@
+---
+import Layout from '../../components/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+---
+
+<Layout 
+  title="Быстрые тесты — самонаблюдение и тревога | Елена Иванова"
+  description="Быстрые психологические тесты для самонаблюдения: уровень тревоги, состояние и фокус. Тест GAD‑7 помогает оценить уровень тревожности за последние две недели."
+>
+  <Header />
+  <main>
+    <section class="section">
+      <div class="container">
+        <Breadcrumbs items={[
+          { name: 'Быстрые тесты', url: '/tests' },
+        ]} />
+
+        <h1>Быстрые тесты</h1>
+        <p class="subtitle">
+          Это короткие опросники для аккуратного самонаблюдения. Они не ставят диагноз, а помогают заметить динамику состояний и понять, нужен ли следующий шаг — работа со специалистом.
+        </p>
+
+        <div class="tests-grid">
+          <article class="test-card">
+            <h2>GAD‑7 — уровень тревоги</h2>
+            <p>
+              Короткий опрос из 7 вопросов, который помогает оценить, насколько часто тревога и беспокойство влияют на вашу жизнь за последние две недели.
+            </p>
+            <ul class="test-meta">
+              <li><strong>Время прохождения:</strong> 2–3 минуты</li>
+              <li><strong>Формат:</strong> самооценка по шкале от 0 до 3</li>
+            </ul>
+            <a href="/tests/gad-7" class="btn test-button">Пройти тест</a>
+          </article>
+
+          <article class="test-card">
+            <h2>PHQ‑9 — уровень депрессии</h2>
+            <p>
+              Тест из 9 вопросов, который помогает оценить выраженность депрессивной симптоматики за последние две недели и заметить, насколько это влияет на повседневную жизнь.
+            </p>
+            <ul class="test-meta">
+              <li><strong>Время прохождения:</strong> 3–4 минуты</li>
+              <li><strong>Формат:</strong> самооценка по шкале от 0 до 3</li>
+            </ul>
+            <a href="/tests/phq-9" class="btn test-button">Пройти тест</a>
+          </article>
+
+          <article class="test-card">
+            <h2>HADS — тревога и депрессия</h2>
+            <p>
+              Две шкалы в одном тесте: тревога (A) и депрессия (D). Помогает оценить баланс между напряжением и снижением настроения за последнюю неделю.
+            </p>
+            <ul class="test-meta">
+              <li><strong>Время прохождения:</strong> 4–6 минут</li>
+              <li><strong>Формат:</strong> самооценка по шкале от 0 до 3</li>
+            </ul>
+            <a href="/tests/hads" class="btn test-button">Пройти тест</a>
+          </article>
+        </div>
+
+        <div class="tests-note">
+          <p>
+            Результаты тестов не заменяют очную или онлайн‑консультацию психолога или психиатра. 
+            Если показатели высокие или ощущения тревоги мешают жить и работать, 
+            лучше обсудить это с специалистом.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .subtitle {
+    max-width: 720px;
+    margin-top: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .tests-grid {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .test-card {
+    padding: 2rem;
+    background: white;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+  }
+
+  .test-card h2 {
+    margin-bottom: 0.75rem;
+  }
+
+  .test-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .test-meta {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--color-text-secondary);
+  }
+
+  .test-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+  }
+
+  .tests-note {
+    margin-top: 3rem;
+    padding: 1.5rem 2rem;
+    border-radius: var(--radius-card);
+    background: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 820px;
+  }
+
+  @media (max-width: 768px) {
+    .test-card {
+      padding: 1.5rem;
+    }
+
+    .tests-note {
+      padding: 1.25rem 1.5rem;
+    }
+  }
+</style>
+
+
