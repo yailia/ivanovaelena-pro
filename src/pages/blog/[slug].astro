@@ -196,6 +196,22 @@ const ogImage = post.cover || "/og-blog.svg";
     margin-bottom: 0.5rem;
   }
 
+  .blog-post-content :global(.video-container) {
+    margin: 2.5rem 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid rgba(111, 216, 197, 0.2);
+    box-shadow: 0 2px 8px rgba(31, 42, 46, 0.04);
+  }
+
+  .blog-post-content :global(.meditation-video) {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 100%;
+  }
+
   .related-posts {
     margin-top: 4rem;
     padding-top: 3rem;
