@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import BookingModal from "./BookingModal.astro";
+import CookieConsent from "./CookieConsent.astro";
 import SEOHead from "./seo/SEOHead.astro";
 
 interface Props {
@@ -74,6 +75,7 @@ const {
       <slot />
     </div>
     <BookingModal />
+    <CookieConsent />
 
     <script is:inline>
       // Добавляем атрибут lang="ru" к тегу html после монтирования

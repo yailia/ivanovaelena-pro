@@ -1,0 +1,126 @@
+---
+import Layout from '../components/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Политика конфиденциальности - Психолог Елена Иванова">
+	<Header />
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="policy-content">
+					<h1>Политика конфиденциальности</h1>
+
+					<div class="policy-section">
+						<p><strong>Оператор персональных данных:</strong> Иванова Елена Ривовна</p>
+						<p><strong>Адрес:</strong> Почта России, отделение 123242, Москва, Кудринская площадь, 1</p>
+						<p><strong>E-mail для связи:</strong> <a href="mailto:elena_rivovna@mail.ru">elena_rivovna@mail.ru</a></p>
+					</div>
+
+					<div class="policy-section">
+						<h2>1. Общие положения</h2>
+						<p>Настоящая Политика конфиденциальности описывает, как мы собираем, храним и обрабатываем персональные данные пользователей сайта.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>2. Какие данные мы собираем</h2>
+						<p><strong>Через форму обратной связи:</strong></p>
+						<ul>
+							<li>имя</li>
+							<li>контактный телефон</li>
+							<li>e-mail</li>
+						</ul>
+						<p><strong>Технические данные и аналитика (например, через Яндекс.Метрику):</strong></p>
+						<ul>
+							<li>IP-адрес и информация о браузере/устройстве</li>
+							<li>информация о поведении на сайте (переходы по страницам, посещения)</li>
+						</ul>
+						<p>Паспортные данные и другие особо чувствительные данные мы не собираем.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>3. Цели обработки данных</h2>
+						<ul>
+							<li>ответ на запрос пользователя через форму обратной связи</li>
+							<li>аналитика посещений сайта для улучшения качества сервиса</li>
+						</ul>
+					</div>
+
+					<div class="policy-section">
+						<h2>4. Срок хранения</h2>
+						<p>Персональные данные хранятся до достижения целей обработки или до момента отзыва согласия пользователем.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>5. Передача данных третьим лицам</h2>
+						<p>Данные не передаются третьим лицам без согласия пользователя, кроме случаев, предусмотренных законодательством РФ.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>6. Права пользователя</h2>
+						<p>Вы имеете право:</p>
+						<ul>
+							<li>узнать, какие данные мы обрабатываем</li>
+							<li>требовать уточнения, блокировки или удаления ваших данных</li>
+							<li>отозвать согласие на обработку данных в любой момент, написав на e-mail <a href="mailto:elena_rivovna@mail.ru">elena_rivovna@mail.ru</a></li>
+						</ul>
+					</div>
+
+					<div class="policy-section">
+						<h2>7. Безопасность данных</h2>
+						<p>Мы принимаем все необходимые меры для защиты персональных данных от неправомерного доступа, утраты, изменения или раскрытия.</p>
+					</div>
+
+					<div class="policy-section">
+						<h2>8. Согласие на обработку персональных данных</h2>
+						<p>Используя форму обратной связи на сайте, вы даёте согласие на обработку ваших персональных данных в соответствии с настоящей Политикой.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>
+
+<style>
+	.policy-content {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.policy-section {
+		margin-bottom: 2.5rem;
+		padding: 2rem;
+		background: white;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+	}
+
+	.policy-section h2 {
+		margin-bottom: 1rem;
+	}
+
+	.policy-section p {
+		color: var(--color-text-secondary);
+		line-height: 1.7;
+	}
+
+	.policy-section ul {
+		margin: 0;
+		padding-left: 1.25rem;
+		color: var(--color-text-secondary);
+		line-height: 1.7;
+	}
+
+	.policy-section a {
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+
+	.policy-section a:hover {
+		text-decoration: underline;
+	}
+</style>
+
+
