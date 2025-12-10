@@ -14,6 +14,12 @@ Allow: /contacts
 Allow: /video/
 Allow: /tests/
 
+# Явно разрешаем фавикон для поисковых систем
+Allow: /favicon.ico
+Allow: /favicon.svg
+Allow: /favicon-96x96.png
+Allow: /apple-touch-icon.png
+
 # Закрытые страницы
 Disallow: /reviews
 
